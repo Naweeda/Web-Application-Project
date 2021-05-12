@@ -9,8 +9,14 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import messageReducer from './redux/reducers/messageReducer';
 import { insertMessage } from './redux/actions/messageActions';
 
+// HW2
+import listingReducer from './redux/reducers/listingReducer';
+import inquiryReducer from './redux/reducers/inquiryReducer';
+
 const rootReducer = combineReducers({
   messageReducer,
+  listingReducer, // HW2
+  inquiryReducer, // HW2
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

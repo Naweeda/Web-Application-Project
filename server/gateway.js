@@ -22,6 +22,13 @@ wsProxy.on('error', (err, req, socket) => {
   socket.end();
 });
 
+// needed for server.js
+const serverHost = process.env.SERVER_HOST || 'http://localhost:4001';
+console.log(`Server end proxies to: ${serverHost}`);
+app.all('/api/*', (req, res) => {
+  apiProxy.web(req, res, { target: serverHost });
+});
+
 const messangerHost = process.env.MESSANGER_HOST || 'http://localhost:5000';
 console.log(`Messanger end proxies to: ${messangerHost}`);
 app.all('/messanger*', (req, res) => {
