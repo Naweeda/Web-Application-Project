@@ -26,6 +26,7 @@ const Listing = ({ listing, userMode }) => {
       price: listing.data.price,
       title: listing.data.title,
       id: listing.data.id,
+      mongoID: listing._id
     };
   }
 
@@ -67,10 +68,10 @@ const Listing = ({ listing, userMode }) => {
 
   // deletes a listing and sets the array of listings to the new array
   const deleteListing = () => {
-    axios.get(`/api/deleteListing?id=${singleListing.id}`)
+    axios.get(`/api/deleteListing?id=${singleListing.mongoID}`)
       .then((response) => {
         console.log(response);
-        dispatch(setListings(response.data.items));
+        dispatch(setListings(response.data));
       })
       .catch((error) => {
         console.log(error);

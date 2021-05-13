@@ -24,8 +24,7 @@ const ListingCreationForm = () => {
     // sends the form listing to api
     axios.post('/api/createListing', formData)
       .then((response) => {
-        console.log(response);
-        const itemsArray = response;
+        const itemsArray = response.data;
         dispatch(setListings(itemsArray));
       })
       .catch((error) => {
@@ -35,7 +34,6 @@ const ListingCreationForm = () => {
     // gets the listing from api
     axios.get('/api/viewListings')
       .then((response) => {
-        console.log(response);
         const itemsArray = response.data;
         dispatch(setListings(itemsArray));
       })
