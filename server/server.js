@@ -1,12 +1,23 @@
 const express = require("express");
 const app = express();
 const { MongoClient } = require('mongodb'); // needed to store listings in mongodb
+const mongodb = require('mongodb'); // needed for delete
 app.use(express.json()); // parse body to json, built in middleware
 
 const upload = require('./imageUpload'); // s3 upload
 
 const inquires = []; // array to hold inquiries data
-let tempID = 10000000; // variable for listing idsa
+
+// from HW3 test files
+function makeid(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 // monogo init
 const url = process.env.MONGO_HOST || 'mongodb://localhost:27017';
@@ -44,7 +55,12 @@ mongoClient.connect((err) => {
     console.log('Current listing:');
     console.log(tempList);
 
-    res.send(tempList);
+    // get and returns all the listings
+    db.collection('listings').find({}).toArray()
+      .then((result) => {
+        // console.log(result);
+        res.send(result);
+      });
   });
 
   app.get('/api/viewListings', (req, res) => {
@@ -56,85 +72,71 @@ mongoClient.connect((err) => {
       });
   });
 
+  app.get('/api/deleteListing', (req, res) => {   
+    // checks if there were no queries in the url
+    if (Object.keys(req.query).length === 0) {
+      res.send('Error deleting');
+    }
+    // if there is a query in the url, search the array
+    else {
+      console.log('Deleting a listing');
+      db.collection('listings', function (err, collection) {
+        collection.deleteOne({ _id: new mongodb.ObjectID(req.query.id) });
+      });
+
+      // get and returns all the listings
+      db.collection('listings').find({}).toArray()
+        .then((result) => {
+          res.send(result);
+        });
+    }
+  });
+
 });
 
 // endpoints
-app.get('/api/deleteListing', (req, res) => {
-  // checks if there were no queries in the url
-  if (Object.keys(req.query).length === 0) {
-    const tempRes = {
-      success: false,
-      items: [],
-      inquiries: [],
-      errorCode: 404
-    };
-
-    res.send(tempRes);
-  }
-  // if there is a query in the url, search the array
-  else {
-    // loops through all the listings checking if the id matches
-    for (let i = 0; i < listings.length; i++) {
-      // if found, delete listing
-      if (listings[i].id === parseInt(req.query.id)) {
-        console.log('Deleting listing:');
-        console.log(listings[i]);
-        listings.splice(i, 1);
-        break;
-      }
-    }
-
-    const tempRes = {
-      success: true,
-      items: listings,
-      inquiries: inquires,
-      errorCode: 200
-    };
-    res.send(tempRes); // respond with filtered listings
-  }
-});
 
 app.post('/api/register', (req, res) => {
-    const registerInfo = {
-      name: document.getElementById('name-input').value,
-      email: document.getElementById('email-input').value,
-      password: document.getElementById('password-input').value,
-    };
+  const registerInfo = {
+    name: document.getElementById('name-input').value,
+    email: document.getElementById('email-input').value,
+    password: document.getElementById('password-input').value,
+  };
 
-    db.collection('credentials').insertOne({ data: registerInfo })
-      .then(() => console.log('db insert worked'))
-      .catch((e) => console.log(e));
-    res.send(JSON.stringify(registerInfo));
-  });
+  db.collection('credentials').insertOne({ data: registerInfo })
+    .then(() => console.log('db insert worked'))
+    .catch((e) => console.log(e));
+  res.send(JSON.stringify(registerInfo));
+});
 
-  app.get('/api/login',(req, res) => {
-    const body = {
-      name: document.getElementById('name-input').value,
-      email: document.getElementById('email-input').value,
-      password: document.getElementById('password-input').value,
-    };
+app.get('/api/login', (req, res) => {
+  const body = {
+    name: document.getElementById('name-input').value,
+    email: document.getElementById('email-input').value,
+    password: document.getElementById('password-input').value,
+  };
 
-    db.collection('credentials').find({}).toArray()
+  db.collection('credentials').find({}).toArray()
     .then((result) => {
       res.send(result);
     })
     .catch((e) => console.log(e));
-  });
+});
 
-  // axios.get('/api/login')
-  // .then((res) => {
-  //     const email = document.getElementById('email-input').value;
-  //     const password = document.getElementById('password-input').value;
-  //     if((res.email === email) && (res.password === password)) {
-  //       // res.send(result);
-  //       //page redirect to home page
-  //     } else {
-  //       res.send('Login failed, try again.');
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+// axios.get('/api/login')
+// .then((res) => {
+//     const email = document.getElementById('email-input').value;
+//     const password = document.getElementById('password-input').value;
+//     if((res.email === email) && (res.password === password)) {
+//       // res.send(result);
+//       //page redirect to home page
+//     } else {
+//       res.send('Login failed, try again.');
+//     }
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 app.post('/api/makeInquiry', (req, res) => {
   // checks if there were no queries in the url

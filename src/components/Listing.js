@@ -107,7 +107,7 @@ const Listing = ({ listing, userMode }) => {
   // formatted and added listing image
   return (
     <div>
-      <img src={singleListing.imageFile} width="200" height="auto" />
+      <img alt="" src={singleListing.imageFile} width="200" height="auto" />
       <table className="listing">
         <tbody>
           <tr>
