@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setInquiries } from '../redux/actions/inquiryActions';
 import { setListings } from '../redux/actions/listingActions';
 import axios from 'axios';
+import './Listing.css';
 
 // a single listing
 const Listing = ({ listing, userMode }) => {

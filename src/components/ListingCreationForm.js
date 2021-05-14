@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDescription, setType, setPrice, setTitle, setListings } from '../redux/actions/listingActions';
 import axios from 'axios';
+import './ListingCreationForm.css';
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch(); // alerts redux that an actions has changed
@@ -40,14 +41,17 @@ const ListingCreationForm = () => {
       .catch((error) => {
         console.log(error);
       });
-
+      document.getElementById('input-description').value = '';
+      document.getElementById('input-type').value = '';
+      document.getElementById('input-price').value = '';
+      document.getElementById('input-title').value = '';
   };
 
   return (
     <div>
       <h1>Create Listing</h1>
       <div>
-        Description:
+        <label>Description:</label>
         <input
           id="input-description"
           type="text"
@@ -55,7 +59,7 @@ const ListingCreationForm = () => {
           value={description} />
       </div>
       <div>
-        Type:
+        <label>Type:</label>
         <input
           id="input-type"
           type="text"
@@ -63,7 +67,7 @@ const ListingCreationForm = () => {
           value={type} />
       </div>
       <div>
-        Price:
+        <label>Price:</label>
         <input
           id="input-price"
           type="number"
@@ -71,7 +75,7 @@ const ListingCreationForm = () => {
           value={price} />
       </div>
       <div>
-        Title:
+      <label>Title:</label>
         <input
           id="input-title"
           type="text"
