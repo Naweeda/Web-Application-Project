@@ -92,6 +92,48 @@ mongoClient.connect((err) => {
     }
   });
 
+app.post('/api/register', (req, res) => {
+    const registerInfo = {
+      name: document.getElementById('name-input').value,
+      email: document.getElementById('email-input').value,
+      password: document.getElementById('password-input').value,
+    };
+
+    db.collection('credentials').insertOne({ data: registerInfo })
+      .then(() => console.log('db insert worked'))
+      .catch((e) => console.log(e));
+    res.send(JSON.stringify(registerInfo));
+  });
+
+  app.get('/api/login',(req, res) => {
+    const body = {
+      name: document.getElementById('name-input').value,
+      email: document.getElementById('email-input').value,
+      password: document.getElementById('password-input').value,
+    };
+
+    db.collection('credentials').find({}).toArray()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((e) => console.log(e));
+  });
+
+  // axios.get('/api/login')
+  // .then((res) => {
+  //     const email = document.getElementById('email-input').value;
+  //     const password = document.getElementById('password-input').value;
+  //     if((res.email === email) && (res.password === password)) {
+  //       // res.send(result);
+  //       //page redirect to home page
+  //     } else {
+  //       res.send('Login failed, try again.');
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
 });
 
 // endpoints

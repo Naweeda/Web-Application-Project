@@ -1,10 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ViewListings from '../components/ViewListings';
-import ListingCreationForm from '../components/ListingCreationForm';
 import Inquiries from '../components/Inquiries';
-import { updateMessages, handlTextChange, submitMessage } from '../redux/actions/messageActions';
+import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
 
 const Message = ({ data }) => (<div>{data}</div>);
 
