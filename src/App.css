@@ -42,7 +42,6 @@
   overflow-y: scroll;
   width: 400px;
 }
-<<<<<<< HEAD
 .outer h2 {
   text-align: center;
   margin: 0;
@@ -51,9 +50,5 @@
 }
 .custom-control-label {
   font-weight: 400;
-=======
 
-.link {
-  margin-left: 10px;
->>>>>>> d3fe8ad0db9b3a49bcf3f6bfbb455f572e8cef7f
 }
