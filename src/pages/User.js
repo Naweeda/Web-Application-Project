@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ViewListings from '../components/ViewListings';
-import { updateMessages, handlTextChange, submitMessage } from '../redux/actions/messageActions';
+import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
 
 const Message = ({ data }) => (<div>{data}</div>);
 
