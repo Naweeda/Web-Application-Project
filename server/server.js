@@ -4,6 +4,8 @@ const { MongoClient, } = require('mongodb'); // needed to store listings in mong
 const mongodb = require('mongodb'); // needed for delete
 app.use(express.json()); // parse body to json, built in middleware
 
+const upload = require('./imageUpload'); // s3 upload
+
 const inquires = []; // array to hold inquiries data
 
 // from HW3 test files
@@ -25,15 +27,24 @@ mongoClient.connect((err) => {
   if (err) console.log(err);
   const db = mongoClient.db('test101');
 
-  app.post('/api/createListing', (req, res) => {
+  // gets uploaded file from multer
+  app.post('/api/createListing', upload.single("imageFile"), (req, res) => {
     // sets object values from received data 
     const tempList = {
       description: req.body.description,
       type: req.body.type,
       price: req.body.price,
       title: req.body.title,
+      imageFile: 'req.file.location',
       id: makeid(8)
     };
+
+    if (!req.body.imageFile) {
+      tempList.imageFile = req.file.location; // set image location of uploaded file
+    }
+    else {
+      tempList.imageFile = 'https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg'; // if no image is uploaded, use default hosted on bucket
+    }
 
     // insert listing into database
     db.collection('listings').insertOne({ data: tempList })
@@ -61,7 +72,7 @@ mongoClient.connect((err) => {
       });
   });
 
-  app.get('/api/deleteListing', (req, res) => {   
+  app.get('/api/deleteListing', (req, res) => {
     // checks if there were no queries in the url
     if (Object.keys(req.query).length === 0) {
       res.send('Error deleting');
