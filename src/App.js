@@ -78,7 +78,20 @@ const App = () => {
         </div>
       </div>
       <ListingCreationForm />
-      <ViewListings /> */}
+      <ViewListings />
+      <div className="outer">
+        <div className="inner">
+      <Switch>
+        <Route path="/"component={Home} />
+        <Route path="/sign-up"component={Register}/>
+        <Route path="/sign-in"component={Login} />
+        </Switch>
+        </div>
+        </div>
+        <button onClick={onSubmit}>Send</button>
+      </div> */}
+      {/* <ListingCreationForm /> */}
+      {/* <ViewListings /> */}
     </div>
   );
 };
