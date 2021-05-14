@@ -1,21 +1,10 @@
 const express = require("express");
 const app = express();
-const { MongoClient, } = require('mongodb'); // needed to store listings in mongodb
-const mongodb = require('mongodb'); // needed for delete
+const { MongoClient } = require('mongodb'); // needed to store listings in mongodb
 app.use(express.json()); // parse body to json, built in middleware
 
 const inquires = []; // array to hold inquiries data
-
-// from HW3 test files
-function makeid(length) {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
+let tempID = 10000000; // variable for listing ids
 
 // monogo init
 const url = process.env.MONGO_HOST || 'mongodb://localhost:27017';
@@ -25,6 +14,16 @@ mongoClient.connect((err) => {
   if (err) console.log(err);
   const db = mongoClient.db('test101');
 
+  // get last inserted id number
+  db.collection('listings').findOne(
+    {},
+    { sort: { _id: -1 } },
+    (err, data) => {
+       console.log(data.data.id);
+       tempID = data.data.id + 1;
+    },
+  );
+
   app.post('/api/createListing', (req, res) => {
     // sets object values from received data 
     const tempList = {
@@ -32,8 +31,10 @@ mongoClient.connect((err) => {
       type: req.body.type,
       price: req.body.price,
       title: req.body.title,
-      id: makeid(8)
+      id: tempID
     };
+
+    tempID++; // increment id for future listings
 
     // insert listing into database
     db.collection('listings').insertOne({ data: tempList })
@@ -44,46 +45,56 @@ mongoClient.connect((err) => {
     console.log('Current listing:');
     console.log(tempList);
 
-    // get and returns all the listings
-    db.collection('listings').find({}).toArray()
-      .then((result) => {
-        // console.log(result);
-        res.send(result);
-      });
+    res.send(tempList);
   });
 
   app.get('/api/viewListings', (req, res) => {
     // get listings from database
     db.collection('listings').find({}).toArray()
       .then((result) => {
-        // console.log(result);
+        console.log(result);
         res.send(result);
       });
-  });
-
-  app.get('/api/deleteListing', (req, res) => {   
-    // checks if there were no queries in the url
-    if (Object.keys(req.query).length === 0) {
-      res.send('Error deleting');
-    }
-    // if there is a query in the url, search the array
-    else {
-      console.log('Deleting a listing');
-      db.collection('listings', function (err, collection) {
-        collection.deleteOne({ _id: new mongodb.ObjectID(req.query.id) });
-      });
-
-      // get and returns all the listings
-      db.collection('listings').find({}).toArray()
-        .then((result) => {
-          res.send(result);
-        });
-    }
   });
 
 });
 
 // endpoints
+app.get('/api/deleteListing', (req, res) => {
+  // checks if there were no queries in the url
+  if (Object.keys(req.query).length === 0) {
+    const tempRes = {
+      success: false,
+      items: [],
+      inquiries: [],
+      errorCode: 404
+    };
+
+    res.send(tempRes);
+  }
+  // if there is a query in the url, search the array
+  else {
+    // loops through all the listings checking if the id matches
+    for (let i = 0; i < listings.length; i++) {
+      // if found, delete listing
+      if (listings[i].id === parseInt(req.query.id)) {
+        console.log('Deleting listing:');
+        console.log(listings[i]);
+        listings.splice(i, 1);
+        break;
+      }
+    }
+
+    const tempRes = {
+      success: true,
+      items: listings,
+      inquiries: inquires,
+      errorCode: 200
+    };
+
+    res.send(tempRes); // respond with filtered listings
+  }
+});
 
 app.post('/api/makeInquiry', (req, res) => {
   // checks if there were no queries in the url

@@ -15,6 +15,8 @@ const ViewListings = (props) => {
   useEffect(() => {
     axios.get('/api/viewListings')
       .then((response) => {
+        console.log('LISTING RESPONSE');
+        console.log(response);
         const itemsArray = response.data;
         dispatch(setListings(itemsArray));
       })
