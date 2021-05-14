@@ -18,6 +18,7 @@ const Listing = ({ listing, userMode }) => {
     title: '',
     imageFile: '',
     id: '',
+    mongoID: ''
   };
 
   // if listing is not undefined, set variable to passed in prop variables
@@ -29,6 +30,7 @@ const Listing = ({ listing, userMode }) => {
       title: listing.data.title,
       imageFile: listing.data.imageFile,
       id: listing.data.id,
+      mongoID: listing._id
     };
   }
 
@@ -70,10 +72,10 @@ const Listing = ({ listing, userMode }) => {
 
   // deletes a listing and sets the array of listings to the new array
   const deleteListing = () => {
-    axios.get(`/api/deleteListing?id=${singleListing.id}`)
+    axios.get(`/api/deleteListing?id=${singleListing.mongoID}`)
       .then((response) => {
         console.log(response);
-        dispatch(setListings(response.data.items));
+        dispatch(setListings(response.data));
       })
       .catch((error) => {
         console.log(error);
