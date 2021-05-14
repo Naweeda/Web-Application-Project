@@ -42,3 +42,7 @@
   overflow-y: scroll;
   width: 400px;
 }
+
+.link {
+  margin-left: 10px;
+}

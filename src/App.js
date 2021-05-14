@@ -1,8 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import { Switch, Route, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateMessages, handlTextChange, submitMessage } from './redux/actions/messageActions';
 import './App.css';
+import Admin from './pages/Admin';
+import AdminPostItem from './components/AdminPostItem';
+import User from './pages/User';
+
 
 // Homework 2
 import ListingCreationForm from './components/ListingCreationForm';
@@ -35,7 +40,17 @@ const App = () => {
 
   return (
     <div className="App">
-      <div>
+      <div className="nav-bar">
+          <Link to="/admin" className="link">Admin</Link>
+          <Link to="/user" className="link">User</Link>
+      </div>
+      <Switch>
+        <Route path="/admin" component={Admin} />
+        <Route path="/user" component={User} />
+        <Route path="/adminpost" component={AdminPostItem} />
+      </Switch>
+      {/* <div>
+        <br></br>
         <div className="message-area">
           {messages.map((message, i) => <Message key={i} data={message} />)}
         </div>
@@ -44,10 +59,10 @@ const App = () => {
         <input type="text" value={text} onChange={handleTextChange} />
       </div>
       <div>
-        <button onClick={onSubmit}>Submit</button>
-      </div>
-      <ListingCreationForm />
-      <ViewListings />
+        <button onClick={onSubmit}>Send</button>
+      </div> */}
+      {/* <ListingCreationForm /> */}
+      {/* <ViewListings /> */}
     </div>
   );
 };
