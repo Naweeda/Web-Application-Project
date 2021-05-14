@@ -1,5 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { Switch, Route, Link } from "react-router-dom";
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateMessages, handlTextChange, submitMessage } from './redux/actions/messageActions';
 import './App.css';
@@ -46,8 +50,23 @@ const App = () => {
       <div>
         <button onClick={onSubmit}>Submit</button>
       </div>
+      <div className="nav-bar">
+        <div>
+          <Link to={"/sign-up"}>Register</Link>
+          <Link to={"/sign-in"}>Login</Link>
+        </div>
+      </div>
       <ListingCreationForm />
       <ViewListings />
+      <div className="outer">
+        <div className="inner">
+      <Switch>
+        <Route path="/"component={Home} />
+        <Route path="/sign-up"component={Register}/>
+        <Route path="/sign-in"component={Login} />
+        </Switch>
+        </div>
+        </div>
     </div>
   );
 };

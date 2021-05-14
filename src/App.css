@@ -42,3 +42,12 @@
   overflow-y: scroll;
   width: 400px;
 }
+.outer h2 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+.custom-control-label {
+  font-weight: 400;
+}
