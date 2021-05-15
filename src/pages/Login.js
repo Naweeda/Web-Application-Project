@@ -1,6 +1,26 @@
 import React from 'react';
+import axios from 'axios';
 
 const Login = () => {
+
+    const loginSubmit = () => {
+        const body = {
+            email: document.getElementById('email-input').value,
+            password: document.getElementById('password-input').value,
+        };
+        axios.post('/api/login')
+        .then((res) => {
+            if((res.email === body.email) && (res.password === body.password)) {
+            // res.send(result);
+            //page redirect to home page
+            } else {
+            res.send('Login failed, try again.');
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
     return ( 
         <div className="sign-in">
         <div className="wrap">
@@ -18,7 +38,7 @@ const Login = () => {
                     <input type="password" className="form-control" placeholder="Enter Password"/>
                 </div>
                 <br></br>
-                <button type="submit" className="btn btn-dark btn-lg btn-block">Sign in</button>
+                <button onClick={loginSubmit} type="submit" className="btn btn-dark btn-lg btn-block">Sign in</button>
             </form>
         </div>
     </div>

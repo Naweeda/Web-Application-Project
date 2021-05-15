@@ -13,11 +13,13 @@ import { insertMessage } from './redux/actions/messageActions';
 // HW2
 import listingReducer from './redux/reducers/listingReducer';
 import inquiryReducer from './redux/reducers/inquiryReducer';
+import registerReducer from './redux/reducers/registerReducer';
 
 const rootReducer = combineReducers({
   messageReducer,
   listingReducer, // HW2
   inquiryReducer, // HW2
+  registerReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
