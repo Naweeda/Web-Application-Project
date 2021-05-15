@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
+const mongodb = require('mongodb'); // needed getting inquiries
 const redis = require('redis');
 const client = redis.createClient({ host: process.env.REDIS_HOST || 'localhost' });
 
@@ -30,6 +31,44 @@ mongoClient.connect((err) => {
         res.send(result.map(r => r.data));
       })
       .catch((e) => console.log(e));
+  });
+
+  // store inquiries into database
+  app.post('/messanger/makeInquiry', (req, res) => {
+    // checks if there were no queries in the url
+    if (Object.keys(req.query).length === 0) {
+      res.send('Error sending message');
+    }
+    else {
+      // sets object values from received data 
+      const tempInquiry = {
+        message: req.body.message,
+        buyerID: req.body.buyerID,
+        listingID: req.query.listingId // gets mongodb id
+      };
+
+      console.log(req.body);
+      db.collection('inquiries').insertOne({ data: tempInquiry })
+        .then(() => console.log('db insert worked'))
+        .catch((e) => console.log(e));
+      client.publish('testPublish', req.body.message);
+      res.send('ok');
+    }
+  });
+
+  app.get('/messanger/getInquiries', (req, res) => {
+    // checks if there were no queries in the url
+    if (Object.keys(req.query).length === 0) {
+      res.send('Error retrieving messages');
+    }
+    // if the query in the url is for 'type', filter the array
+    else {  
+      db.collection('inquiries').find({ 'data.listingID' : `${new mongodb.ObjectID(req.query.listingId)}` }).toArray()
+      .then((result) => {
+        res.send(result.map(r => r.data));
+      })
+      .catch((e) => console.log(e));
+    }
   });
 
   app.listen(5000);

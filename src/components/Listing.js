@@ -43,11 +43,12 @@ const Listing = ({ listing, userMode }) => {
   const sendInquire = () => {
     const formData = {
       message: message,
+      buyerID: '' // get id from logged in user
     };
 
     console.log(formData);
 
-    axios.post(`/api/makeInquiry?listingId=${singleListing.id}`, formData)
+    axios.post(`/messanger/makeInquiry?listingId=${singleListing.mongoID}`, formData)
       .then(function (response) {
         console.log(response);
       })
@@ -84,10 +85,10 @@ const Listing = ({ listing, userMode }) => {
 
   // gets inquiries from a listing and sets it to array in reducer
   const viewInquire = () => {
-    axios.get(`/api/getInquiries?listingId=${singleListing.id}`)
+    axios.get(`/messanger/getInquiries?listingId=${singleListing.mongoID}`)
       .then((response) => {
         console.log(response);
-        dispatch(setInquiries(response.data.inquiries));
+        dispatch(setInquiries(response.data));
       })
       .catch((error) => {
         console.log(error);
