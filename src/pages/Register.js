@@ -66,7 +66,6 @@ const Register = () => {
                     <label>Password:</label>
                     <input 
                       type="password" 
-                      className="form-control" 
                       placeholder="Enter Password"
                       onChange={e => dispatch(setPassword(e.target.value))}
                     />
