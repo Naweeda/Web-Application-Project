@@ -1,19 +1,19 @@
 export const setName = name => ({
     type: 'UPDATE_NAME',
-    name
+    name,
 });
 
 export const setEmail = email => ({
     type: 'UPDATE_EMAIL',
-    email
+    email,
 });
 
 export const setPassword = password => ({
     type: 'UPDATE_PASSWORD',
-    password
+    password,
 });
 
 export const setConfirmPassword = confirmPassword => ({
     type: 'UPDATE_CONFIRM_PASSWORD',
-    confirmPassword
+    confirmPassword,
 });

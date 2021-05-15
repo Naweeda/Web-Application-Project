@@ -13,22 +13,21 @@ const registerReducer = (state = REGISTER_STATE, action) => {
                 name: action.name
             };
         case 'UPDATE_EMAIL':
-        return {
-            ...state,
-            email: action.email
-        };
+            return {
+                ...state,
+                email: action.email
+            };
         case 'UPDATE_PASSWORD':
             return {
                 ...state,
                 password: action.password
             };
         case 'UPDATE_CONFIRM_PASSWORD':
-        return {
-            ...state,
-            confirmPassword: action.confirmPassword
-        };
-        default:
-            return {...state};
+            return {
+                ...state,
+                confirmPassword: action.confirmPassword
+            };
+        default: return state;
     }
 };
 

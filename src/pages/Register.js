@@ -10,23 +10,27 @@ const Register = () => {
   const name = useSelector(state => state.registerReducer.name);
   const email = useSelector(state => state.registerReducer.email);
   const password = useSelector(state => state.registerReducer.password);
-//   const confirmPassword = useSelector(state => state.registerReducer.confirmPassword);
+  const confirmPassword = useSelector(state => state.registerReducer.confirmPassword);
 
   const handleClick = () => {
-    const body = {
-      name: name,
-      email: email,
-      password: password,
-    };
-    console.log(body);
-    axios.post('/api/register', body)
-    .then((res) => {
-      console.log(res.data);
-      // res.send(JSON.stringify(res.data));
-    })
-   .catch((error) => {
-      console.log(error);
-    });
+    if(password === confirmPassword) {
+      const body = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      console.log(body);
+      axios.post('/api/register', body)
+      .then((res) => {
+        console.log(res.data);
+        // res.send(JSON.stringify(res.data));
+      })
+     .catch((error) => {
+        console.log(error);
+      });
+    } else {
+      alert('Password does not match.');
+    }
   };
 
     return (
@@ -39,19 +43,39 @@ const Register = () => {
                 <form>
                 <div className="form-group">
                     <label>Name:</label>
-                    <input type="text" id="name-input" placeholder="Name"/>
+                    <input 
+                      type="text" 
+                      id="name-input" 
+                      placeholder="Name"
+                      onChange={e => dispatch(setName(e.target.value))}
+                    />
                 </div>
                 <div className="form-group">
                     <label>Email:</label>
-                    <input type="email" id="email-input" placeholder="Enter email"/>
+                    <input 
+                    type="email" 
+                    id="email-input" 
+                    placeholder="Enter email"
+                    onChange={e => dispatch(setEmail(e.target.value))}
+                  />
                 </div>
                 <div className="form-group">
                     <label>Password:</label>
-                    <input type="password" className="form-control" placeholder="Enter Password"/>
+                    <input 
+                      type="password" 
+                      className="form-control" 
+                      placeholder="Enter Password"
+                      onChange={e => dispatch(setPassword(e.target.value))}
+                    />
                 </div>
                 <div className="form-group">
                     <label>Confirm Password:</label>
-                    <input type="confirm password" id="password-input" placeholder="Confirm Password"/>
+                    <input 
+                      type="password" 
+                      id="password-input" 
+                      placeholder="Confirm Password"
+                      onChange={e => dispatch(setConfirmPassword(e.target.value))}
+                    />
                 </div>
                 <br></br>
                 <button onClick={handleClick} type="submit" className="btn btn-dark btn-lg btn-block">Register</button>

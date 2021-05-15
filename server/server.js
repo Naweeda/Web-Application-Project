@@ -8,6 +8,8 @@ const upload = require('./imageUpload'); // s3 upload
 
 const inquires = []; // array to hold inquiries data
 
+
+
 // from HW3 test files
 function makeid(length) {
   var result = '';
@@ -92,37 +94,38 @@ mongoClient.connect((err) => {
     }
   });
 
+  
+  app.post('/api/register', (req, res) => {
+    const registerInfo = {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    };
+
+    db.collection('credentials').insertOne({ data: registerInfo })
+      .then(() => console.log('db insert worked'))
+      .catch((e) => console.log(e));
+      
+    res.send(registerInfo);
+  });
+
 });
 
 // endpoints
 
-app.post('/api/register', (req, res) => {
-  const registerInfo = {
-    name: document.getElementById('name-input').value,
-    email: document.getElementById('email-input').value,
-    password: document.getElementById('password-input').value,
-  };
+// app.get('/api/login', (req, res) => {
+//   const body = {
+//     name: req.body.name,
+//     email: req.body.email,
+//     password: req.body.email,
+//   };
 
-  db.collection('credentials').insertOne({ data: registerInfo })
-    .then(() => console.log('db insert worked'))
-    .catch((e) => console.log(e));
-    
-  res.send(registerInfo);
-  });
-
-app.get('/api/login', (req, res) => {
-  const body = {
-    name: document.getElementById('name-input').value,
-    email: document.getElementById('email-input').value,
-    password: document.getElementById('password-input').value,
-  };
-
-  db.collection('credentials').find({}).toArray()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((e) => console.log(e));
-});
+//   db.collection('credentials').find({}).toArray()
+//     .then((result) => {
+//       res.send(result);
+//     })
+//     .catch((e) => console.log(e));
+// });
 
 // axios.get('/api/login')
 // .then((res) => {
