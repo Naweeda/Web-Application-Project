@@ -6,10 +6,6 @@ app.use(express.json()); // parse body to json, built in middleware
 
 const upload = require('./imageUpload'); // s3 upload
 
-const inquires = []; // array to hold inquiries data
-
-
-
 // from HW3 test files
 function makeid(length) {
   var result = '';
