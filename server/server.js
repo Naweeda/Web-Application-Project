@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const { MongoClient } = require('mongodb'); // needed to store listings in mongodb
+const mongodb = require('mongodb')
 app.use(express.json()); // parse body to json, built in middleware
 
 const upload = require('./imageUpload'); // s3 upload
@@ -105,7 +106,22 @@ app.post('/api/register', (req, res) => {
       .then(() => console.log('db insert worked'))
       .catch((e) => console.log(e));
     res.send(JSON.stringify(registerInfo));
+
   });
+
+  app.post('/api/login', (req, res) => {
+    const loginInfo ={
+      email: req.body.email,
+      password: req.body.password,
+    };
+
+    db.collection('credentials').insertOne({ data: loginInfo })
+    .then(() => console.log('db insert worked'))
+    .catch((e) => console.log(e));
+    res.send(loginInfo);
+
+  });
+
 
   app.get('/api/login',(req, res) => {
     const body = {
