@@ -16,6 +16,7 @@ const Listing = ({ listing, userMode }) => {
     type: '',
     price: '',
     title: '',
+    imageFile: '',
     id: '',
   };
 
@@ -26,8 +27,8 @@ const Listing = ({ listing, userMode }) => {
       type: listing.data.type,
       price: listing.data.price,
       title: listing.data.title,
+      imageFile: listing.data.imageFile,
       id: listing.data.id,
-      mongoID: listing._id
     };
   }
 
@@ -59,9 +60,9 @@ const Listing = ({ listing, userMode }) => {
       <div>
         <textarea
           type="text"
-          id={singleListing.id} 
+          id={singleListing.id}
           onChange={e => setMessage(e.target.value)}
-          value={message}/>
+          value={message} />
         <button className="submit" onClick={sendInquire}>Send</button>
       </div>
     );
@@ -69,10 +70,10 @@ const Listing = ({ listing, userMode }) => {
 
   // deletes a listing and sets the array of listings to the new array
   const deleteListing = () => {
-    axios.get(`/api/deleteListing?id=${singleListing.mongoID}`)
+    axios.get(`/api/deleteListing?id=${singleListing.id}`)
       .then((response) => {
         console.log(response);
-        dispatch(setListings(response.data));
+        dispatch(setListings(response.data.items));
       })
       .catch((error) => {
         console.log(error);
@@ -101,10 +102,16 @@ const Listing = ({ listing, userMode }) => {
     );
   };
 
+  // formatted and added listing image
   return (
     <div>
+      <img src={singleListing.imageFile} width="200" height="auto" />
       <table className="listing">
         <tbody>
+          <tr>
+            <td>Title: </td>
+            <td>{singleListing.title}</td>
+          </tr>
           <tr>
             <td>Description: </td>
             <td>{singleListing.description}</td>
@@ -116,10 +123,6 @@ const Listing = ({ listing, userMode }) => {
           <tr>
             <td>Price: </td>
             <td>{singleListing.price}</td>
-          </tr>
-          <tr>
-            <td>Title: </td>
-            <td>{singleListing.title}</td>
           </tr>
         </tbody>
       </table>

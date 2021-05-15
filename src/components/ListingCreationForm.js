@@ -14,18 +14,21 @@ const ListingCreationForm = () => {
 
   // runs when form is submitted
   const submit = () => {
-    // holds data from text files
-    const formData = {
-      description: description,
-      type: type,
-      price: price,
-      title: title
-    };
+
+    // form that holds listing information
+    let productImage = document.getElementById("productImage");
+    let formData = new FormData();
+    formData.append("imageFile", productImage.files[0]);
+    formData.append("description", description);
+    formData.append("type", type);
+    formData.append("price", price);
+    formData.append("title", title);
 
     // sends the form listing to api
-    axios.post('/api/createListing', formData)
+    axios.post('/api/createListing', formData, { headers: { 'content-type': "multipart/form-data" } })
       .then((response) => {
-        const itemsArray = response.data;
+        console.log(response);
+        const itemsArray = response;
         dispatch(setListings(itemsArray));
       })
       .catch((error) => {
@@ -35,21 +38,30 @@ const ListingCreationForm = () => {
     // gets the listing from api
     axios.get('/api/viewListings')
       .then((response) => {
+        console.log(response);
         const itemsArray = response.data;
         dispatch(setListings(itemsArray));
       })
       .catch((error) => {
         console.log(error);
       });
-      document.getElementById('input-description').value = '';
-      document.getElementById('input-type').value = '';
-      document.getElementById('input-price').value = '';
-      document.getElementById('input-title').value = '';
+    document.getElementById('input-description').value = '';
+    document.getElementById('input-type').value = '';
+    document.getElementById('input-price').value = '';
+    document.getElementById('input-title').value = '';
   };
 
   return (
     <div>
       <h1>Create Listing</h1>
+      <div>
+        <label>Title:</label>
+        <input
+          id="input-title"
+          type="text"
+          onChange={e => dispatch(setTitle(e.target.value))}
+          value={title} />
+      </div>
       <div>
         <label>Description:</label>
         <input
@@ -75,12 +87,7 @@ const ListingCreationForm = () => {
           value={price} />
       </div>
       <div>
-      <label>Title:</label>
-        <input
-          id="input-title"
-          type="text"
-          onChange={e => dispatch(setTitle(e.target.value))}
-          value={title} />
+        <input type="file" id="productImage" accept="image/jpg,image/jpeg,image/png" />
       </div>
       <div>
         <button id="submit" onClick={submit}>Submit</button>
