@@ -106,8 +106,9 @@ app.post('/api/register', (req, res) => {
   db.collection('credentials').insertOne({ data: registerInfo })
     .then(() => console.log('db insert worked'))
     .catch((e) => console.log(e));
-  res.send(JSON.stringify(registerInfo));
-});
+    
+  res.send(registerInfo);
+  });
 
 app.get('/api/login', (req, res) => {
   const body = {
