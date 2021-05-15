@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Switch, Route, Link } from "react-router-dom";
 import Home from './pages/Home';
@@ -54,6 +55,9 @@ const App = () => {
           {/* links to individual products */}
           <Route path="/product/:id" component={ProductPost} />
       </div>
+
+      <div className="outer">
+        <div className="inner">
           <Switch>
             <Route path="/sign-up"component={Register}/>
             <Route path="/sign-in"component={Login} />
@@ -64,6 +68,8 @@ const App = () => {
           </Switch>
         </div>
       </div>
+    </div>
+  </div>
       {/* <div>
         <div className="message-area">
           {messages.map((message, i) => <Message key={i} data={message} />)}
@@ -82,7 +88,20 @@ const App = () => {
         </div>
       </div>
       <ListingCreationForm />
-      <ViewListings /> */}
+      <ViewListings />
+      <div className="outer">
+        <div className="inner">
+      <Switch>
+        <Route path="/"component={Home} />
+        <Route path="/sign-up"component={Register}/>
+        <Route path="/sign-in"component={Login} />
+      </Switch>
+        </div>
+        </div>
+        <button onClick={onSubmit}>Send</button>
+      </div> */}
+      {/* <ListingCreationForm /> */}
+      {/* <ViewListings /> */}
     </div>
   );
 };

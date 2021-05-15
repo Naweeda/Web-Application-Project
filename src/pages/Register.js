@@ -11,13 +11,17 @@ const Register = () => {
   const email = useSelector(state => state.registerReducer.email);
   const password = useSelector(state => state.registerReducer.password);
   const confirmPassword = useSelector(state => state.registerReducer.confirmPassword);
+  // const isLoggedIn = useSelector(state => state.registerReducer.isLoggedIn);
+
 
   const handleClick = () => {
+    // validation logic
     if(password === confirmPassword) {
-      const body = {
+      const body ={
         name: name,
         email: email,
         password: password,
+
       };
       console.log(body);
       axios.post('/api/register', body)
@@ -32,8 +36,7 @@ const Register = () => {
       alert('Password does not match.');
     }
   };
-
-    return (
+   return (
         <div className="signup">
             <div className="wrap">
                 <h1>
