@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ViewListings from '../components/ViewListings';
-import Inquiries from '../components/Inquiries';
 import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
 
 const Message = ({ data }) => (<div>{data}</div>);
@@ -38,7 +37,6 @@ const Admin = () => {
         <button onClick={onSubmit}>Send</button>
       </div>
       {/* <ListingCreationForm /> */}
-      <Inquiries />
       <ViewListings />
     </div>
   );
