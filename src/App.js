@@ -11,6 +11,8 @@ import Admin from './pages/Admin';
 import AdminPostItem from './components/AdminPostItem';
 import User from './pages/User';
 
+import ProductPost from './components/ProductPost'; // for viewing individual products
+
 // Homework 2
 // import ListingCreationForm from './components/ListingCreationForm';
 // import ViewListings from './components/ViewListings';
@@ -49,6 +51,8 @@ const App = () => {
           <Link to="/user" className="link">User</Link>
           <Link to="/sign-up" className="link">Register</Link>
           <Link to="/sign-in" className="link">Login</Link>
+          {/* links to individual products */}
+          <Route path="/product/:id" component={ProductPost} />
       </div>
           <Switch>
             <Route path="/sign-up"component={Register}/>

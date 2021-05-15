@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   price: '',
   title: '',
   listings: [],
+  singleListing: {}
 };
 
 const listingReducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +35,11 @@ const listingReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         listings: action.listings,
+      };
+    case 'USER_SET_SINGLELISTING':
+      return {
+        ...state,
+        singleListing: action.singleListing,
       };
     default:
       return { ...state };

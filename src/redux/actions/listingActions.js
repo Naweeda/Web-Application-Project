@@ -22,3 +22,8 @@ export const setListings = listings => ({
   type: 'USER_SET_LISTINGS',
   listings,
 });
+
+export const setSingleListing = singleListing => ({
+  type: 'USER_SET_SINGLELISTING',
+  singleListing,
+});

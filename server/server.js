@@ -64,15 +64,26 @@ mongoClient.connect((err) => {
   });
 
   app.get('/api/viewListings', (req, res) => {
-    // get listings from database
-    db.collection('listings').find({}).toArray()
-      .then((result) => {
-        console.log(result);
-        res.send(result);
-      });
+    // checks if there were no queries in the url
+    if (Object.keys(req.query).length === 0) {
+      // get all listings from database
+      db.collection('listings').find({}).toArray()
+        .then((result) => {
+          console.log(result);
+          res.send(result);
+        });
+    }
+    else {
+      // get individual listing from database
+      db.collection('listings').find({ _id: new mongodb.ObjectID(req.query.id) }).toArray()
+        .then((result) => {
+          console.log(result);
+          res.send(result);
+        });
+    }
   });
 
-  app.get('/api/deleteListing', (req, res) => {   
+  app.get('/api/deleteListing', (req, res) => {
     // checks if there were no queries in the url
     if (Object.keys(req.query).length === 0) {
       res.send('Error deleting');

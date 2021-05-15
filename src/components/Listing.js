@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setInquiries } from '../redux/actions/inquiryActions';
 import { setListings } from '../redux/actions/listingActions';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // links to individual product pages
 import './Listing.css';
 
 // a single listing
@@ -107,30 +108,32 @@ const Listing = ({ listing, userMode }) => {
 
   // formatted and added listing image
   return (
-    <div>
-      <img alt="" src={singleListing.imageFile} width="200" height="auto" />
-      <table className="listing">
-        <tbody>
-          <tr>
-            <td>Title: </td>
-            <td>{singleListing.title}</td>
-          </tr>
-          <tr>
-            <td>Description: </td>
-            <td>{singleListing.description}</td>
-          </tr>
-          <tr>
-            <td>Type: </td>
-            <td>{singleListing.type}</td>
-          </tr>
-          <tr>
-            <td>Price: </td>
-            <td>{singleListing.price}</td>
-          </tr>
-        </tbody>
-      </table>
-      {setMode ? (renderUser()) : (renderAdmin())}
-    </div>
+    <Link className='link' to={`/product/${singleListing.mongoID}`/* links to product page using product name */}>
+      <div className="card">
+        <img alt="" src={singleListing.imageFile}/>
+        <table className="listing">
+          <tbody>
+            <tr>
+              <td>Title: </td>
+              <td>{singleListing.title}</td>
+            </tr>
+            <tr>
+              <td>Description: </td>
+              <td>{singleListing.description}</td>
+            </tr>
+            <tr>
+              <td>Type: </td>
+              <td>{singleListing.type}</td>
+            </tr>
+            <tr>
+              <td>Price: </td>
+              <td>{singleListing.price}</td>
+            </tr>
+          </tbody>
+        </table>
+        {setMode ? (renderUser()) : (renderAdmin())}
+      </div>
+    </Link>
   );
 };
 
