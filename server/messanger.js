@@ -21,7 +21,7 @@ mongoClient.connect((err) => {
     db.collection('test').insertMany([{ data: req.body.message, channelId: req.body.channelId}])
       .then(() => console.log('db insert worked'))
       .catch((e) => console.log(e));
-    client.publish('testPublish', req.body.message);
+    client.publish('testPublish', JSON.stringify(req.body)); // changed
     res.send('ok');
   });
 

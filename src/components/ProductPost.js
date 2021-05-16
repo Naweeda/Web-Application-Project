@@ -7,11 +7,26 @@ import Inquiries from '../components/Inquiries';
 import axios from 'axios';
 import currentUser from './currentUser'; // gets current user
 
+// sample chat box
+import '../pages/pages.css';
+import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
+const Message = ({ data }) => (<div>{data}</div>);
+
 const ProductPost = (props) => {
   const dispatch = useDispatch();
   const [message, setMessage] = React.useState(''); // from classwork 4 to change message box
   const [owner, setOwner] = React.useState({}); // used for rendering for admin or user
   const singleListing = useSelector(state => state.listingReducer.singleListing);
+
+  // sample chat box
+  const messages = useSelector(state => state.messageReducer.messages);
+  const text = useSelector(state => state.messageReducer.text);
+  const onSubmit = () => {
+    dispatch(submitMessage(props.match.params.id, currentUser.getUser().name)); // pass listing id
+  }
+  const handleTextChange = (e) => {
+    dispatch(handlTextChange(e.target.value));
+  }
 
   useEffect(() => {
     // console.log(props.match.params.id); // listing id / mongodb ID
@@ -103,6 +118,17 @@ const ProductPost = (props) => {
   return (
     <div>
       <img alt="" src={singleListing.imageFile} width="500" height="auto" />
+      <div>
+        <div className="message-area">
+          {messages.map((message, i) => <Message key={i} data={message} />)}
+        </div>
+        <div>
+          <input type="text" value={text} onChange={handleTextChange} />
+        </div>
+        <div>
+          <button onClick={onSubmit}>Send</button>
+        </div>
+      </div>
       {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
       <h1>Title: {singleListing.title} ${singleListing.price}</h1>
       <h2>Description: {singleListing.description}</h2>

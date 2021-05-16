@@ -27,7 +27,7 @@ const User = () => {
         <Link to="/userlistings" className="link">All Listings</Link>
       </div>
       <br></br>
-      <div className="message-area">
+      {/* <div className="message-area">
         {messages.map((message, i) => <Message key={i} data={message} />)}
       </div>
       <div>
@@ -35,7 +35,7 @@ const User = () => {
       </div>
       <div>
         <button onClick={onSubmit}>Send</button>
-      </div>
+      </div> */}
       {/* <ViewListings userMode={true} /> */}
     </div>
   );

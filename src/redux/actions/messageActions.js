@@ -22,9 +22,9 @@ export const handlTextChange = text => {
   };
 };
 
-export const submitMessage = (id) => (dispatch, getState) => {
+export const submitMessage = (id, name) => (dispatch, getState) => {
   console.log(id);
-  axios.post('/messanger/postMessage', { message: getState().messageReducer.text, channelId: id })
+  axios.post('/messanger/postMessage', { message: ( name + ': ' + getState().messageReducer.text), channelId: id })
     .then(() => { })
     .catch(e => console.log(e));
   dispatch(handlTextChange(''));

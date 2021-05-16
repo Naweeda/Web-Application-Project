@@ -29,7 +29,7 @@ const Admin = () => {
         <Link to="/listings" className="link">All Listings</Link>
       </div>
       <br></br>
-      <div className="message-area">
+      {/* <div className="message-area">
         {messages.map((message, i) => <Message key={i} data={message} />)}
       </div>
       <div>
@@ -37,7 +37,7 @@ const Admin = () => {
       </div>
       <div>
         <button onClick={onSubmit}>Send</button>
-      </div>
+      </div> */}
       {/* <ListingCreationForm /> */}
       {/* <ViewListings /> */}
     </div>

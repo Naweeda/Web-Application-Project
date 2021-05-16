@@ -20,11 +20,12 @@ wss.on('connection', (ws) => {
   console.log(users);
 });
 
-client.on('message', (channel, message) => {
-  console.log(`subscriber hears message ${message} on channel ${channel}`);
-  const receivedText = message; // parse json data
+client.on('message', (channel, data) => {
+  const receivedText = JSON.parse(data); // parse json data
+  console.log(receivedText);
+  console.log(`subscriber hears message ${receivedText.message} on channel ${channel}`);
   wss.clients.forEach((client) => {
-    client.send(message);
+    client.send(receivedText.message);
   });
 });
 
