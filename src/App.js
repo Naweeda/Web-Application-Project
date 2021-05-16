@@ -76,7 +76,7 @@ const App = () => {
                         <a class="nav-link" href="#">{!currentUser.getUser().isLoggedIn && (<Link to="/sign-up" className="link">Register</Link>)}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">{!currentUser.getUser().isLoggedIn && (<Link id="login-link" to="/sign-in" className="link">Login</Link>)}{currentUser.getUser().isLoggedIn && (<Link id="login-link" to="" onClick={logOut} className="link">Log Out</Link>)}</a>
+                        <a class="nav-link" href="#">{!currentUser.getUser().isLoggedIn && (<Link id="login-link" to="/sign-in" className="link">Login</Link>)}{currentUser.getUser().isLoggedIn && (<Link id="login-link" to="" onClick={logOut} className="link">Log Out</Link>)}</a>
                     </li>
                     </ul>
                 </div>
