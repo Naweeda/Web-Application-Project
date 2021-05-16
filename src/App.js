@@ -11,7 +11,8 @@ import './App.css';
 import Admin from './pages/Admin';
 import AdminPostItem from './components/AdminPostItem';
 import User from './pages/User';
-
+import Listings from './pages/Listings';
+import userListings from './pages/userListings';
 import ProductPost from './components/ProductPost'; // for viewing individual products
 
 // Homework 2
@@ -67,8 +68,10 @@ const App = () => {
           <Switch>
             <Route path="/sign-up"component={Register}/>
             <Route path="/sign-in"component={Login} />
-            <Route path="/admin" component={Admin} />
             <Route path="/adminpost" component={AdminPostItem} />
+            <Route path="/userlistings" component={userListings} />
+            <Route path="/listings" component={Listings} />
+            <Route path="/admin" component={Admin} />
             <Route path="/user" component={User} />
             <Route path="/"component={Home} />
           </Switch>
