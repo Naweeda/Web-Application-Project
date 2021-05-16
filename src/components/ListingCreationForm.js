@@ -56,7 +56,8 @@ const ListingCreationForm = () => {
   return (
     <div>
       <h1>Create Listing</h1>
-      <div>
+      <br></br>
+      <div className="form-group">
         <label>Title:</label>
         <input
           id="input-title"
@@ -64,7 +65,7 @@ const ListingCreationForm = () => {
           onChange={e => dispatch(setTitle(e.target.value))}
           value={title} />
       </div>
-      <div>
+      <div className="form-group">
         <label>Description:</label>
         <input
           id="input-description"
@@ -72,7 +73,7 @@ const ListingCreationForm = () => {
           onChange={e => dispatch(setDescription(e.target.value))}
           value={description} />
       </div>
-      <div>
+      <div className="form-group">
         <label>Type:</label>
         <input
           id="input-type"
@@ -80,7 +81,7 @@ const ListingCreationForm = () => {
           onChange={e => dispatch(setType(e.target.value))}
           value={type} />
       </div>
-      <div>
+      <div className="form-group">
         <label>Price:</label>
         <input
           id="input-price"
@@ -91,6 +92,7 @@ const ListingCreationForm = () => {
       <div>
         <input type="file" id="productImage" accept="image/jpg,image/jpeg,image/png" />
       </div>
+        <br></br>
       <div>
         <button id="submit" onClick={submit}>Submit</button>
       </div>
