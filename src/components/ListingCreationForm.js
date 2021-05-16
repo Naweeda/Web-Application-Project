@@ -14,13 +14,12 @@ const ListingCreationForm = () => {
   const type = useSelector(state => state.listingReducer.type);
   const price = useSelector(state => state.listingReducer.price);
   const title = useSelector(state => state.listingReducer.title);
-  const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
   let history = useHistory();
 
 
   // runs when form is submitted
   const submit = () => {
-    if(isLoggedIn) {
+    if(currentUser.getUser().isLoggedIn) {
       // form that holds listing information
       let productImage = document.getElementById("productImage");
       let formData = new FormData();

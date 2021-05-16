@@ -110,7 +110,7 @@ const ProductPost = (props) => {
   return (
     <div className="Posting">
       <img alt="" src={singleListing.imageFile} width="500" height="auto" />
-      {isLoggedIn && (
+      {currentUser.getUser().isLoggedIn && (
         <div>
         <div className="message-area">
           {messages.map((message, i) => <Message key={i} data={message} />)}

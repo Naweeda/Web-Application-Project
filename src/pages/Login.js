@@ -23,7 +23,6 @@ const Login = () => {
             .then((res) => {
                 if ((res.data.data.email === email) && (res.data.data.password === password)) {
                     dispatch(setIsLoggedIn(true));
-
                     // sets logged in user
                     const userForm = {
                         name: res.data.data.name,
