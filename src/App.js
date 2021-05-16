@@ -31,13 +31,14 @@ const App = () => {
   React.useEffect(() => {
     if (isLoggedIn) window.location.reload(); // cheap way to get website to see current user
     console.log(currentUser.getUser());
-    axios.get('/messanger/getMessages')
-      .then((res) => {
-        dispatch(updateMessages(res.data));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // axios.get('/messanger/getMessages')
+    //   .then((res) => {
+    //     dispatch(updateMessages(res.data.map(r => r.data))); // changed to explicitly get message
+    //     console.log(res.data.map( r => r));
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   }, [isLoggedIn]);
 
   // const onSubmit = () => {

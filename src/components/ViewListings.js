@@ -25,7 +25,7 @@ const ViewListings = (props) => {
 
   return (
     <div>
-      <h1>ViewListings</h1>
+      <h1>Listings</h1>
       {/* Loops through received object listings priting out the component for a single listing */}
       {Object.keys(listings).map((keyName, i) => (
         <Listing

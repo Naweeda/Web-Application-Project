@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSingleListing, setListings } from '../redux/actions/listingActions';
 import { setInquiries } from '../redux/actions/inquiryActions';
+import { updateMessages } from '../redux/actions/messageActions';
 import Inquiries from '../components/Inquiries';
 import axios from 'axios';
 import currentUser from './currentUser'; // gets current user
@@ -10,7 +11,7 @@ import currentUser from './currentUser'; // gets current user
 // sample chat box
 import '../pages/pages.css';
 import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
-const Message = ({ data }) => (<div>{data}</div>);
+const Message = ({ data }) => (<div>{data}</div>); // message tag from chat box?
 
 const ProductPost = (props) => {
   const dispatch = useDispatch();
@@ -38,6 +39,16 @@ const ProductPost = (props) => {
       .catch((error) => {
         console.log(error);
       });
+
+      // gets messages
+      axios.get(`/messanger/getMessages?listingId=${props.match.params.id}`)
+      .then((res) => {
+        dispatch(updateMessages(res.data.map(r => r.data))); // changed to explicitly get message
+        console.log(res.data.map( r => r));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, [dispatch]);
 
   // sends the inquiry using api call
@@ -62,12 +73,12 @@ const ProductPost = (props) => {
   const renderUser = () => {
     return (
       <div>
-        <textarea
+        {/* <textarea
           type="text"
           id={singleListing.id}
           onChange={e => setMessage(e.target.value)}
           value={message} />
-        <button className="submit" onClick={sendInquire}>Send</button>
+        <button className="submit" onClick={sendInquire}>Send</button> */}
       </div>
     );
   };
@@ -101,15 +112,16 @@ const ProductPost = (props) => {
     return (
       <div>
         <Link to='/'><button onClick={deleteListing}>Delete</button></Link>
-        <button onClick={viewInquire}>View Inquiries</button>
-        <Inquiries />
+        {/* <button onClick={viewInquire}>View Inquiries</button>
+        <Inquiries /> */}
       </div>
     );
   };
 
   return (
     <div className="Posting">
-      {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="500" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="500" height="auto" />}
+      {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
+      {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="440" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="440" height="auto" />}
       {currentUser.getUser().isLoggedIn && (
         <div>
           <div className="message-area">
@@ -123,8 +135,6 @@ const ProductPost = (props) => {
           </div>
         </div>
       )}
-      {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
-
       <div className="form-group">
         <div class="row">
           <div class="col-25">

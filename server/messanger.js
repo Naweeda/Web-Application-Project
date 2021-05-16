@@ -26,11 +26,24 @@ mongoClient.connect((err) => {
   });
 
   app.get('/messanger/getMessages', (req, res) => {
-    db.collection('test').find({}).toArray()
+    // checks if there were no queries in the url
+    if (Object.keys(req.query).length === 0) {
+      db.collection('test').find({}).toArray()
       .then((result) => {
-        res.send(result.map(r => r.data));
+        console.log(result);
+        res.send(result.map(r => r)); // changed to receive all results instead of just messages
       })
       .catch((e) => console.log(e));
+    }
+    else {
+      // find messages based on listing id
+      db.collection('test').find({ channelId : `${new mongodb.ObjectID(req.query.listingId)}` }).toArray()
+      .then((result) => {
+        console.log(result);
+        res.send(result.map(r => r)); // changed to receive all results instead of just messages
+      })
+      .catch((e) => console.log(e));
+    }
   });
 
   // store inquiries into database
