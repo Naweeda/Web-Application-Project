@@ -13,6 +13,7 @@ import AdminPostItem from './components/AdminPostItem';
 import User from './pages/User';
 
 import ProductPost from './components/ProductPost'; // for viewing individual products
+import currentUser from './components/currentUser'; // sets current user for session
 
 // Homework 2
 // import ListingCreationForm from './components/ListingCreationForm';
@@ -24,8 +25,11 @@ const App = () => {
   const dispatch = useDispatch();
   // const messages = useSelector(state => state.messageReducer.messages);
   // const text = useSelector(state => state.messageReducer.text);
-  // const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
+
   React.useEffect(() => {
+    if(isLoggedIn) window.location.reload(); // cheap way to get website to see current user
+    console.log(currentUser.getUser());
     axios.get('/messanger/getMessages')
       .then((res) => {
         dispatch(updateMessages(res.data));
@@ -33,7 +37,7 @@ const App = () => {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [isLoggedIn]);
 
   // const onSubmit = () => {
   //   dispatch(submitMessage());
@@ -43,39 +47,42 @@ const App = () => {
   //   dispatch(handlTextChange(e.target.value));
   // }
 
+  const logOut = () => {
+    currentUser.setUserLogout();
+    window.location.reload(); // used to refresh buttons
+  }
+
   return (
     <div className="App">
       <div className="outer">
         <div className="inner">
-        <div className="nav-bar">
-          <Link to="/admin" className="link">Admin</Link>
-          <Link to="/user" className="link">User</Link>
-          <Link to="/sign-up" className="link">Register</Link>
-          <Link id="login-link" to="/sign-in" className="link">Login</Link>
-          {/* {!isLoggedIn && (
-            <Link id="login-link" to="/sign-in" className="link">Login</Link>
-          )} */}
-          {/* {isLoggedIn && (
-            <Link id="login-link" to="/" className="link">Logout</Link>
-          )} */}
-          {/* links to individual products */}
-          <Route path="/product/:id" component={ProductPost} />
-      </div>
+          <div className="nav-bar">
+            <Link to="/admin" className="link">Admin</Link>
+            <Link to="/user" className="link">User</Link>
+            {/* <Link to="/sign-up" className="link">Register</Link>
+            <Link id="login-link" to="/sign-in" className="link">Login</Link> */}
+            {console.log(currentUser.getUser().isLoggedIn)}
+            {!currentUser.getUser().isLoggedIn && (<Link to="/sign-up" className="link">Register</Link>)}
+            {!currentUser.getUser().isLoggedIn && (<Link id="login-link" to="/sign-in" className="link">Login</Link>)}
+            {currentUser.getUser().isLoggedIn && (<Link id="login-link" to="" onClick={logOut} className="link">Log Out</Link>)}
+            {/* links to individual products */}
+            <Route path="/product/:id" component={ProductPost} />
+          </div>
 
-      <div className="outer">
-        <div className="inner">
-          <Switch>
-            <Route path="/sign-up"component={Register}/>
-            <Route path="/sign-in"component={Login} />
-            <Route path="/admin" component={Admin} />
-            <Route path="/adminpost" component={AdminPostItem} />
-            <Route path="/user" component={User} />
-            <Route path="/"component={Home} />
-          </Switch>
+          <div className="outer">
+            <div className="inner">
+              <Switch>
+                <Route path="/sign-up" component={Register} />
+                <Route path="/sign-in" component={Login} />
+                <Route path="/admin" component={Admin} />
+                <Route path="/adminpost" component={AdminPostItem} />
+                <Route path="/user" component={User} />
+                <Route path="/" component={Home} />
+              </Switch>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
       {/* <div>
         <div className="message-area">
           {messages.map((message, i) => <Message key={i} data={message} />)}
