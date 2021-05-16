@@ -63,23 +63,23 @@ const App = () => {
             {!currentUser.getUser().isLoggedIn && (<Link to="/sign-up" className="link">Register</Link>)}
             {!currentUser.getUser().isLoggedIn && (<Link id="login-link" to="/sign-in" className="link">Login</Link>)}
             {currentUser.getUser().isLoggedIn && (<Link id="login-link" to="" onClick={logOut} className="link">Log Out</Link>)}
-            {/* links to individual products */}
-            <Route path="/product/:id" component={ProductPost} />
           </div>
-        </div>
-      </div>
-      <div className="outer">
-        <div className="inner">
-          <Switch>
-            <Route path="/sign-up" component={Register} />
-            <Route path="/sign-in" component={Login} />
-            <Route path="/adminpost" component={AdminPostItem} />
-            <Route path="/userlistings" component={userListings} />
-            <Route path="/listings" component={Listings} />
-            <Route path="/admin" component={Admin} />
-            <Route path="/user" component={User} />
-            <Route path="/" component={Home} />
-          </Switch>
+          <div className="outer">
+            <div className="inner">
+              <Switch>
+                {/* links to individual products */}
+                <Route path="/product/:id" component={ProductPost} />
+                <Route path="/sign-up" component={Register} />
+                <Route path="/sign-in" component={Login} />
+                <Route path="/adminpost" component={AdminPostItem} />
+                <Route path="/userlistings" component={userListings} />
+                <Route path="/listings" component={Listings} />
+                <Route path="/admin" component={Admin} />
+                <Route path="/user" component={User} />
+                <Route path="/" component={Home} />
+              </Switch>
+            </div>
+          </div>
         </div>
       </div>
       {/* <div>
