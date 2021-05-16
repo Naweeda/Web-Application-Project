@@ -9,8 +9,6 @@ const AdminPostItem = () => {
 
     return(
         <div>
-            <h1>Admin</h1>
-            <h3>Post Item</h3>
             <ListingCreationForm />
         </div>
     );

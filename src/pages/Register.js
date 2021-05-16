@@ -40,7 +40,7 @@ const Register = () => {
         <div className="signup">
             <div className="wrap">
                 <h1>
-                    Signup
+                  User Registration
                 </h1>
                 <br></br>
                 <form>

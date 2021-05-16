@@ -46,7 +46,8 @@ const Login = () => {
     return (
         <div className="sign-in">
             <div className="wrap">
-                <h1>Log in</h1>
+                <h1>Login</h1>
+                <br></br>
                 <div className="form-group">
                     <label>Email:</label>
                     <input
