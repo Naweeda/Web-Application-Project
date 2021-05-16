@@ -1,11 +1,15 @@
 import React from 'react';
 import './pages.css';
 import './map.css';
+import currentUser from '../components/currentUser'; // gets current user
 
 const Home = () => {
     return (
         <div>
             <h2>Home</h2>
+            {currentUser.getUser().isLoggedIn && (
+                <h3>Greetings, {currentUser.getUser().name}!</h3>
+            )}
             <h4>Our Location</h4>
             <div class="mapouter">
                 <div class="gmap_canvas">
