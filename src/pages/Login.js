@@ -13,7 +13,6 @@ const Login = () => {
     const password = useSelector(state => state.loginReducer.password);
     const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
 
-
     const handleClick = () => {
         const body = {
             email: email,
@@ -40,7 +39,6 @@ const Login = () => {
     }
 
     if (isLoggedIn) {
-        // document.getElementById('login-link').value = 'Logout';
         return <Redirect to="/" />;
     }
     return (
@@ -78,4 +76,5 @@ const Login = () => {
         </div>
     );
 }
+
 export default Login;

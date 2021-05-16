@@ -16,7 +16,6 @@ const Home = () => {
                     <iframe width="319" height="333" id="gmap_canvas" src="https://maps.google.com/maps?q=san%20francisco%20state&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
                         </iframe><a href="https://putlocker-is.org"></a>
                         <br></br>
-                        
                         <a href="https://www.embedgooglemap.net"></a>
                 </div>
             </div>

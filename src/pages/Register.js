@@ -1,8 +1,8 @@
 import React from 'react';
-import './pages.css';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setName, setEmail, setPassword, setConfirmPassword } from '../redux/actions/registerActions';
+import './pages.css';
 
 const Register = () => {
 
@@ -11,8 +11,6 @@ const Register = () => {
   const email = useSelector(state => state.registerReducer.email);
   const password = useSelector(state => state.registerReducer.password);
   const confirmPassword = useSelector(state => state.registerReducer.confirmPassword);
-  // const isLoggedIn = useSelector(state => state.registerReducer.isLoggedIn);
-
 
   const handleClick = () => {
     // validation logic
@@ -27,7 +25,6 @@ const Register = () => {
       axios.post('/api/register', body)
       .then((res) => {
         console.log(res.data);
-        // res.send(JSON.stringify(res.data));
       })
      .catch((error) => {
         console.log(error);
