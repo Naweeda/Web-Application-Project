@@ -28,7 +28,7 @@ const ListingCreationForm = () => {
     axios.post('/api/createListing', formData, { headers: { 'content-type': "multipart/form-data" } })
       .then((response) => {
         console.log(response);
-        const itemsArray = response;
+        const itemsArray = response.data;
         dispatch(setListings(itemsArray));
       })
       .catch((error) => {

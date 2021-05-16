@@ -1,15 +1,19 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Switch, Route, Link } from "react-router-dom";
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateMessages } from './redux/actions/messageActions';
 import './App.css';
 import Admin from './pages/Admin';
 import AdminPostItem from './components/AdminPostItem';
 import User from './pages/User';
+import Listings from './pages/Listings';
+import userListings from './pages/userListings';
+import ProductPost from './components/ProductPost'; // for viewing individual products
 
 // Homework 2
 // import ListingCreationForm from './components/ListingCreationForm';
@@ -21,7 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
   // const messages = useSelector(state => state.messageReducer.messages);
   // const text = useSelector(state => state.messageReducer.text);
-
+  // const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
   React.useEffect(() => {
     axios.get('/messanger/getMessages')
       .then((res) => {
@@ -48,18 +52,33 @@ const App = () => {
           <Link to="/admin" className="link">Admin</Link>
           <Link to="/user" className="link">User</Link>
           <Link to="/sign-up" className="link">Register</Link>
-          <Link to="/sign-in" className="link">Login</Link>
+          <Link id="login-link" to="/sign-in" className="link">Login</Link>
+          {/* {!isLoggedIn && (
+            <Link id="login-link" to="/sign-in" className="link">Login</Link>
+          )} */}
+          {/* {isLoggedIn && (
+            <Link id="login-link" to="/" className="link">Logout</Link>
+          )} */}
+          {/* links to individual products */}
+          <Route path="/product/:id" component={ProductPost} />
       </div>
+
+      <div className="outer">
+        <div className="inner">
           <Switch>
             <Route path="/sign-up"component={Register}/>
             <Route path="/sign-in"component={Login} />
-            <Route path="/admin" component={Admin} />
             <Route path="/adminpost" component={AdminPostItem} />
+            <Route path="/userlistings" component={userListings} />
+            <Route path="/listings" component={Listings} />
+            <Route path="/admin" component={Admin} />
             <Route path="/user" component={User} />
             <Route path="/"component={Home} />
           </Switch>
         </div>
       </div>
+    </div>
+  </div>
       {/* <div>
         <div className="message-area">
           {messages.map((message, i) => <Message key={i} data={message} />)}
@@ -85,7 +104,7 @@ const App = () => {
         <Route path="/"component={Home} />
         <Route path="/sign-up"component={Register}/>
         <Route path="/sign-in"component={Login} />
-        </Switch>
+      </Switch>
         </div>
         </div>
         <button onClick={onSubmit}>Send</button>
