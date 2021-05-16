@@ -1,7 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDescription, setType, setPrice, setTitle, setListings } from '../redux/actions/listingActions';
-import axios from 'axios';
+import { Redirect } from 'react-router';
 import './ListingCreationForm.css';
 import currentUser from './currentUser'; // gets current user
 
@@ -12,45 +13,52 @@ const ListingCreationForm = () => {
   const type = useSelector(state => state.listingReducer.type);
   const price = useSelector(state => state.listingReducer.price);
   const title = useSelector(state => state.listingReducer.title);
+  const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
+
 
   // runs when form is submitted
   const submit = () => {
+    if(isLoggedIn) {
+      // form that holds listing information
+      let productImage = document.getElementById("productImage");
+      let formData = new FormData();
+      formData.append("imageFile", productImage.files[0]);
+      formData.append("description", description);
+      formData.append("type", type);
+      formData.append("price", price);
+      formData.append("title", title);
+      formData.append("userId", currentUser.getUser().id);
 
-    // form that holds listing information
-    let productImage = document.getElementById("productImage");
-    let formData = new FormData();
-    formData.append("imageFile", productImage.files[0]);
-    formData.append("description", description);
-    formData.append("type", type);
-    formData.append("price", price);
-    formData.append("title", title);
-    formData.append("userId", currentUser.getUser().id);
+      // sends the form listing to api
+      axios.post('/api/createListing', formData, { headers: { 'content-type': "multipart/form-data" } })
+        .then((response) => {
+          console.log(response);
+          const itemsArray = response.data;
+          dispatch(setListings(itemsArray));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-    // sends the form listing to api
-    axios.post('/api/createListing', formData, { headers: { 'content-type': "multipart/form-data" } })
-      .then((response) => {
-        console.log(response);
-        const itemsArray = response.data;
-        dispatch(setListings(itemsArray));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    // gets the listing from api
-    axios.get('/api/viewListings')
-      .then((response) => {
-        console.log(response);
-        const itemsArray = response.data;
-        dispatch(setListings(itemsArray));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    document.getElementById('input-description').value = '';
-    document.getElementById('input-type').value = '';
-    document.getElementById('input-price').value = '';
-    document.getElementById('input-title').value = '';
+      // gets the listing from api
+      axios.get('/api/viewListings')
+        .then((response) => {
+          console.log(response);
+          const itemsArray = response.data;
+          dispatch(setListings(itemsArray));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      document.getElementById('input-description').value = '';
+      document.getElementById('input-type').value = '';
+      document.getElementById('input-price').value = '';
+      document.getElementById('input-title').value = '';
+    } else {
+        alert("You are not logged in.");
+        return <Redirect to="/sign-in" />;
+    }
+  
   };
 
   return (

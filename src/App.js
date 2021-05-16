@@ -67,10 +67,12 @@ const App = () => {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#"><Link to="/admin" className="link">Admin</Link> <span class="sr-only">(current)</span></a>
+                        {/* This page replaced Admin.js */}
+                        <a class="nav-link" href="#"><Link to="/adminpost" className="link">Post Item</Link> <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><Link to="/user" className="link">User</Link></a>
+                        {/* This page replaced User.js since we don't need this anymore*/}
+                        <a class="nav-link" href="#"><Link to="/userlistings" className="link">Listings</Link></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">{!currentUser.getUser().isLoggedIn && (<Link to="/sign-up" className="link">Register</Link>)}</a>
@@ -104,8 +106,8 @@ const App = () => {
             <Route path="/adminpost" component={AdminPostItem} />
             <Route path="/userlistings" component={userListings} />
             <Route path="/listings" component={Listings} />
-            <Route path="/admin" component={Admin} />
-            <Route path="/user" component={User} />
+            {/* <Route path="/admin" component={Admin} /> */}
+            {/* <Route path="/user" component={User} /> */}
             <Route path="/"component={Home} />
           </Switch>
         </div>
