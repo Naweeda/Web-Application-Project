@@ -17,6 +17,7 @@ const ProductPost = (props) => {
   const [message, setMessage] = React.useState(''); // from classwork 4 to change message box
   const [owner, setOwner] = React.useState({}); // used for rendering for admin or user
   const singleListing = useSelector(state => state.listingReducer.singleListing);
+  const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
 
   // sample chat box
   const messages = useSelector(state => state.messageReducer.messages);
@@ -118,7 +119,8 @@ const ProductPost = (props) => {
   return (
     <div className="Posting">
       <img alt="" src={singleListing.imageFile} width="500" height="auto" />
-      <div>
+      {isLoggedIn && (
+        <div>
         <div className="message-area">
           {messages.map((message, i) => <Message key={i} data={message} />)}
         </div>
@@ -129,6 +131,7 @@ const ProductPost = (props) => {
           <button onClick={onSubmit}>Send</button>
         </div>
       </div>
+      )}
       {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
 
       <div className="form-group">
