@@ -116,7 +116,7 @@ const ProductPost = (props) => {
   };
 
   return (
-    <div>
+    <div className="Posting">
       <img alt="" src={singleListing.imageFile} width="500" height="auto" />
       <div>
         <div className="message-area">
@@ -130,12 +130,59 @@ const ProductPost = (props) => {
         </div>
       </div>
       {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
-      <h1>Title: {singleListing.title} ${singleListing.price}</h1>
-      <h2>Description: {singleListing.description}</h2>
-      <h3>Type: {singleListing.type}</h3>
-      <h3>Owner: {owner.name}</h3>
-      <h3>Email: {owner.email}</h3>
+
+      <div className="form-group">
+        <div class="row">
+          <div class="col-25">
+            <label>Title: {singleListing.title}</label>
+          </div>
+        </div>
+      </div>
+
+      <div className="form-group">
+        <div class="row">
+          <div class="col-25">
+            <label>Price: ${singleListing.price}</label>
+          </div>
+        </div>
+      </div>
+        
+      <div className="form-group">
+        <div class="row">
+          <div class="col-25">
+            <label>Description: {singleListing.description}</label>
+          </div>
+        </div>
+      </div>
+
+    <div className="form-group">
+      <div class="row">
+        <div class="col-25">
+          <label>Type: {singleListing.type}</label>
+        </div>
+      </div>
     </div>
+
+    <div className="form-group">
+      <div class="row">
+        <div class="col-25">
+          <label>Owner: {singleListing.owner}</label>
+        </div>
+      </div>
+    </div>
+
+    <div className="form-group">
+      <div class="row">
+        <div class="col-25">
+          <label>Email: {singleListing.email}</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+  
   );
 };
 
