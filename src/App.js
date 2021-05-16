@@ -81,7 +81,8 @@ const App = () => {
                     </ul>
                 </div>
               </nav>
-          </div>
+
+          </div> {/* End nav-bar */}
           
           
           {/* {!isLoggedIn && (
