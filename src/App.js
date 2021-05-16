@@ -60,53 +60,53 @@ const App = () => {
           <div className="nav-bar">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#"><Link to="/" className="link">Home</Link></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#"><Link to="/admin" className="link">Admin</Link> <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><Link to="/user" className="link">User</Link></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{!currentUser.getUser().isLoggedIn && (<Link to="/sign-up" className="link">Register</Link>)}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{!currentUser.getUser().isLoggedIn && (<Link id="login-link" to="/sign-in" className="link">Login</Link>)}{currentUser.getUser().isLoggedIn && (<Link id="login-link" to="" onClick={logOut} className="link">Log Out</Link>)}</a>
-                    </li>
-                    </ul>
-                </div>
-              </nav>
+              <a class="navbar-brand" href="#"><Link to="/" className="link">Home</Link></a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#"><Link to="/admin" className="link">Admin</Link> <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><Link to="/user" className="link">User</Link></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">{!currentUser.getUser().isLoggedIn && (<Link to="/sign-up" className="link">Register</Link>)}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">{!currentUser.getUser().isLoggedIn && (<Link id="login-link" to="/sign-in" className="link">Login</Link>)}{currentUser.getUser().isLoggedIn && (<Link id="login-link" to="" onClick={logOut} className="link">Log Out</Link>)}</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
 
           </div> {/* End nav-bar */}
-          
-          
+
+
           {/* {!isLoggedIn && (
             <Link id="login-link" to="/sign-in" className="link">Login</Link>
           )} */}
           {/* {isLoggedIn && (
             <Link id="login-link" to="/" className="link">Logout</Link>
           )} */}
-          {/* links to individual products */}
-          <Route path="/product/:id" component={ProductPost} />
         </div>
       </div>
 
       <div className="outer">
         <div className="inner">
           <Switch>
-            <Route path="/sign-up"component={Register}/>
-            <Route path="/sign-in"component={Login} />
+            {/* links to individual products */}
+            <Route path="/product/:id" component={ProductPost} />
+            <Route path="/sign-up" component={Register} />
+            <Route path="/sign-in" component={Login} />
             <Route path="/adminpost" component={AdminPostItem} />
             <Route path="/userlistings" component={userListings} />
             <Route path="/listings" component={Listings} />
             <Route path="/admin" component={Admin} />
             <Route path="/user" component={User} />
-            <Route path="/"component={Home} />
+            <Route path="/" component={Home} />
           </Switch>
         </div>
       </div>
@@ -142,7 +142,7 @@ const App = () => {
       </div> */}
       {/* <ListingCreationForm /> */}
       {/* <ViewListings /> */}
-  </div>
+    </div>
   );
 };
 
