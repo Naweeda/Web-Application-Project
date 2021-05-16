@@ -5,7 +5,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateMessages } from './redux/actions/messageActions';
 import './App.css';
 import Admin from './pages/Admin';
@@ -24,7 +24,7 @@ const App = () => {
   const dispatch = useDispatch();
   // const messages = useSelector(state => state.messageReducer.messages);
   // const text = useSelector(state => state.messageReducer.text);
-
+  // const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
   React.useEffect(() => {
     axios.get('/messanger/getMessages')
       .then((res) => {
@@ -51,7 +51,13 @@ const App = () => {
           <Link to="/admin" className="link">Admin</Link>
           <Link to="/user" className="link">User</Link>
           <Link to="/sign-up" className="link">Register</Link>
-          <Link to="/sign-in" className="link">Login</Link>
+          <Link id="login-link" to="/sign-in" className="link">Login</Link>
+          {/* {!isLoggedIn && (
+            <Link id="login-link" to="/sign-in" className="link">Login</Link>
+          )} */}
+          {/* {isLoggedIn && (
+            <Link id="login-link" to="/" className="link">Logout</Link>
+          )} */}
           {/* links to individual products */}
           <Route path="/product/:id" component={ProductPost} />
       </div>

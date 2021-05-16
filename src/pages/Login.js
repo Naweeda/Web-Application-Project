@@ -13,49 +13,59 @@ const Login = () => {
 
 
     const handleClick = () => {
-        const body ={
-            email: email,
-            password: password,
-        }
-        console.log(body);
-        axios.post('api/login', body)
+        const body = {
+          email: email,
+          password: password,
+        };
+        axios.post('api/login',body)
         .then((res) => {
-        if((res.email === body.email) && (res.password === body.password)) {
-          dispatch(setIsLoggedIn(true));
-        }else {
-            res.send('Login failed! try again'); 
+            if((res.data.data.email === email) && (res.data.data.password === password)) {
+                dispatch(setIsLoggedIn(true));
+            } else {
+            console.log('Login failed! try again'); 
         }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 if(isLoggedIn) {
-    return <Redirect to="/"/>
+    // document.getElementById('login-link').value = 'Logout';
+    return <Redirect to="/"/>;
 }
     return ( 
         <div className="sign-in">
         <div className="wrap">
-            <form>
-            <h1>
-                Log in
-            </h1>
+            <h1>Log in</h1>
             <div className="form-group">
-                    <label>Email:</label>
-                    <input type="email" className="form-control" placeholder="Enter email" onChange={e => dispatch(setEmail(e.target.value))}/>
-                </div>
-
-                <div className="form-group">
-                    <label>Password:</label>
-                    <input type="password" className="form-control" placeholder="Enter Password" onChange={e => dispatch(setPassword(e.target.value))}/>
-                </div>
-                <br></br>
-                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={handleClick}>Sign in</button>
-            </form>
+            <label>Email:</label>
+            <input 
+                type="email" 
+                className="form-control"
+                placeholder="Enter Email" 
+                onChange={e => dispatch(setEmail(e.target.value))}
+            />
+            </div>
+            <div className="form-group">
+            <label>Password:</label>
+            <input 
+                type="password" 
+                className="form-control" 
+                placeholder="Enter Password" 
+                onChange={e => dispatch(setPassword(e.target.value))}
+            />
+            </div>
+            <br></br>
+            <button 
+            type="submit" 
+            className="btn btn-dark btn-lg btn-block" 
+            onClick={handleClick}
+            >
+                Sign in
+            </button>
         </div>
-    </div>
-        
-    )
+    </div>    
+    );
 }
 export default Login;

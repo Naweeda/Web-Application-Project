@@ -1,4 +1,4 @@
-const INITIAL_STATE ={
+const INITIAL_STATE = {
     email: '',
     password: '',
     isLoggedIn: false,
@@ -6,12 +6,12 @@ const INITIAL_STATE ={
 
 const loginReducer = (state = INITIAL_STATE, action) => {
     switch(action.type) {
-        case 'EMAIL_SET_EMAIL':
+        case 'UPDATE_EMAIL':
             return {
                 ...state,
-                email:action.email,
+                email: action.email,
             };
-        case 'USER_SET_PASSWORD':
+        case 'UPDATE_PASSWORD':
             return {
             ...state,
             password: action.password,
@@ -20,10 +20,10 @@ const loginReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isLoggedIn: action.isLoggedIn,
-            }
+            };
             default:
                 return state;
     }
-}
+};
 
 export default loginReducer;

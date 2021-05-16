@@ -101,7 +101,7 @@ mongoClient.connect((err) => {
     }
   });
 
-  
+  // saves data of user into database
   app.post('/api/register', (req, res) => {
     const registerInfo = {
       name: req.body.name,
@@ -115,30 +115,14 @@ mongoClient.connect((err) => {
       
     res.send(registerInfo);
   });
-
-  app.post('/api/login', (req, res) => {
-    const loginInfo ={
-      email: req.body.email,
-      password: req.body.password,
-    };
-
-    db.collection('credentials').insertOne({ data: loginInfo })
-    .then(() => console.log('db insert worked'))
-    .catch((e) => console.log(e));
-    res.send(loginInfo);
-
-  });
-
-
-  app.get('/api/login',(req, res) => {
-    const body = {
-      name: document.getElementById('name-input').value,
-      email: document.getElementById('email-input').value,
-      password: document.getElementById('password-input').value,
-    };
-
-    db.collection('credentials').find({}).toArray()
+  
+  // authenticates login credentials enetered by user
+  app.post('/api/login',(req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    db.collection('credentials').findOne({'data.email': `${email}`, 'data.password': `${password}`})
     .then((result) => {
+      console.log(result);
       res.send(result);
     })
     .catch((e) => console.log(e));
@@ -147,35 +131,6 @@ mongoClient.connect((err) => {
 });
 
 // endpoints
-
-// app.get('/api/login', (req, res) => {
-//   const body = {
-//     name: req.body.name,
-//     email: req.body.email,
-//     password: req.body.email,
-//   };
-
-//   db.collection('credentials').find({}).toArray()
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((e) => console.log(e));
-// });
-
-// axios.get('/api/login')
-// .then((res) => {
-//     const email = document.getElementById('email-input').value;
-//     const password = document.getElementById('password-input').value;
-//     if((res.email === email) && (res.password === password)) {
-//       // res.send(result);
-//       //page redirect to home page
-//     } else {
-//       res.send('Login failed, try again.');
-//     }
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
 
 module.exports = app;
 

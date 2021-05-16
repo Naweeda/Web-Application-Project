@@ -1,14 +1,14 @@
 export const setEmail = email => ({
     type: 'UPDATE_EMAIL',
-    email
+    email,
 });
 
 export const setPassword = password => ({
     type: 'UPDATE_PASSWORD',
-    password
+    password,
 });
 
 export const setIsLoggedIn = isLoggedIn => ({
     type: 'USER_SET_IS_LOGGED_IN',
-    isLoggedIn
-})
+    isLoggedIn,
+});
