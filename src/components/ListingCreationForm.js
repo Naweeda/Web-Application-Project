@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDescription, setType, setPrice, setTitle, setListings } from '../redux/actions/listingActions';
-import { Redirect } from 'react-router';
-import './ListingCreationForm.css';
 import { useHistory } from "react-router-dom";
+import { setDescription, setType, setPrice, setTitle, setListings } from '../redux/actions/listingActions';
 import currentUser from './currentUser'; // gets current user
+import './ListingCreationForm.css';
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch(); // alerts redux that an actions has changed
@@ -59,7 +58,6 @@ const ListingCreationForm = () => {
         alert("You are not logged in.");
         history.push('/sign-in');
     }
-  
   };
 
   return (

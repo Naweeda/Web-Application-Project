@@ -13,7 +13,6 @@ const Login = () => {
     const password = useSelector(state => state.loginReducer.password);
     const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
 
-
     const handleClick = () => {
         const body = {
             email: email,
@@ -40,13 +39,13 @@ const Login = () => {
     }
 
     if (isLoggedIn) {
-        // document.getElementById('login-link').value = 'Logout';
         return <Redirect to="/" />;
     }
     return (
         <div className="sign-in">
             <div className="wrap">
-                <h1>Log in</h1>
+                <h1>Login</h1>
+                <br></br>
                 <div className="form-group">
                     <label>Email:</label>
                     <input
@@ -77,4 +76,5 @@ const Login = () => {
         </div>
     );
 }
+
 export default Login;
