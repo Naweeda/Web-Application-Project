@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ViewListings from '../components/ViewListings';
 import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
 
@@ -22,6 +23,9 @@ const User = () => {
   return (
     <div>
       <h1>User</h1>
+      <div className="user-navbar">
+        <Link to="/userlistings" className="link">All Listings</Link>
+      </div>
       <br></br>
       <div className="message-area">
         {messages.map((message, i) => <Message key={i} data={message} />)}
@@ -32,7 +36,7 @@ const User = () => {
       <div>
         <button onClick={onSubmit}>Send</button>
       </div>
-      <ViewListings userMode={true} />
+      {/* <ViewListings userMode={true} /> */}
     </div>
   );
 };

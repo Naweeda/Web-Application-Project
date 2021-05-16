@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ViewListings from '../components/ViewListings';
 import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
+import './pages.css';
 
 const Message = ({ data }) => (<div>{data}</div>);
 
@@ -24,7 +25,8 @@ const Admin = () => {
     <div>
       <h1>Admin</h1>
       <div className="admin-navbar">
-        <Link to="/adminpost">Post Item</Link>
+        <Link to="/adminpost"className="link">Post Item</Link>
+        <Link to="/listings" className="link">All Listings</Link>
       </div>
       <br></br>
       <div className="message-area">
@@ -37,7 +39,7 @@ const Admin = () => {
         <button onClick={onSubmit}>Send</button>
       </div>
       {/* <ListingCreationForm /> */}
-      <ViewListings />
+      {/* <ViewListings /> */}
     </div>
   );
 };
