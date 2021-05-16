@@ -15,7 +15,6 @@ const Message = ({ data }) => (<div>{data}</div>);
 const ProductPost = (props) => {
   const dispatch = useDispatch();
   const [message, setMessage] = React.useState(''); // from classwork 4 to change message box
-  const [owner, setOwner] = React.useState({}); // used for rendering for admin or user
   const singleListing = useSelector(state => state.listingReducer.singleListing);
   const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
 
@@ -33,16 +32,8 @@ const ProductPost = (props) => {
     // console.log(props.match.params.id); // listing id / mongodb ID
     axios.get(`/api/viewListings?id=${props.match.params.id}`)
       .then((response) => {
-        // console.log(response.data[0]);
-        dispatch(setSingleListing(response.data[0].data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios.get(`/api/getListingUser?id=${singleListing.userId}`)
-      .then((response) => {
-        dispatch(setOwner(response.data.data));
+        console.log(response.data.data);
+        dispatch(setSingleListing(response.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -169,7 +160,7 @@ const ProductPost = (props) => {
     <div className="form-group">
       <div class="row">
         <div class="col-25">
-          <label>Owner: {singleListing.owner}</label>
+          <label>Owner: {singleListing.name}</label>
         </div>
       </div>
     </div>

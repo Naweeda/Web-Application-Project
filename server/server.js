@@ -73,10 +73,21 @@ mongoClient.connect((err) => {
     }
     else {
       // get individual listing from database
-      db.collection('listings').find({ _id: new mongodb.ObjectID(req.query.id) }).toArray()
+      db.collection('listings').findOne({ _id: new mongodb.ObjectID(req.query.id) })
         .then((result) => {
-          console.log(result);
-          res.send(result);
+
+          // gets listing owner so it doesn't have to be in another endpoint
+          db.collection('credentials').findOne({ _id: new mongodb.ObjectID(result.data.userId) })
+            .then((result2) => {
+              // console.log(result2);
+              result.data.name = result2.data.name;
+              result.data.email = result2.data.email;
+              console.log(result);
+              res.send(result);
+            });
+
+          // console.log(result);
+          //res.send(result);
         });
     }
   });
@@ -128,20 +139,20 @@ mongoClient.connect((err) => {
     db.collection('credentials').insertOne({ data: registerInfo })
       .then(() => console.log('db insert worked'))
       .catch((e) => console.log(e));
-      
+
     res.send(registerInfo);
   });
-  
+
   // authenticates login credentials enetered by user
-  app.post('/api/login',(req, res) => {
+  app.post('/api/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    db.collection('credentials').findOne({'data.email': `${email}`, 'data.password': `${password}`})
-    .then((result) => {
-      console.log(result);
-      res.send(result);
-    })
-    .catch((e) => console.log(e));
+    db.collection('credentials').findOne({ 'data.email': `${email}`, 'data.password': `${password}` })
+      .then((result) => {
+        console.log(result);
+        res.send(result);
+      })
+      .catch((e) => console.log(e));
   });
 
 });
