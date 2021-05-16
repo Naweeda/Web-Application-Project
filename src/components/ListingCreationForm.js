@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDescription, setType, setPrice, setTitle, setListings } from '../redux/actions/listingActions';
 import { Redirect } from 'react-router';
 import './ListingCreationForm.css';
+import { useHistory } from "react-router-dom";
 import currentUser from './currentUser'; // gets current user
 
 const ListingCreationForm = () => {
@@ -14,6 +15,7 @@ const ListingCreationForm = () => {
   const price = useSelector(state => state.listingReducer.price);
   const title = useSelector(state => state.listingReducer.title);
   const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
+  let history = useHistory();
 
 
   // runs when form is submitted
@@ -56,7 +58,7 @@ const ListingCreationForm = () => {
       document.getElementById('input-title').value = '';
     } else {
         alert("You are not logged in.");
-        return <Redirect to="/sign-in" />;
+        history.push('/sign-in');
     }
   
   };
