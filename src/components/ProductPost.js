@@ -93,13 +93,45 @@ const ProductPost = (props) => {
   };
 
   return (
-    <div>
+    <div className="Posting">
       <img alt="" src={singleListing.imageFile} width="500" height="auto" />
       {setMode ? (renderUser()) : (renderAdmin())}
-      <h1>Title: {singleListing.title} ${singleListing.price}</h1>
-      <h2>Description: {singleListing.description}</h2>
-      <h3>Type: {singleListing.type}</h3>
+      <div className="form-group">
+      <div class="row">
+      <div class="col-25">
+      <label>Title: {singleListing.title}{singleListing.price}</label>
+      </div>
+      <div class="col-75">
+      <input type="text"  id="title" name="title"/>
+      </div>
+      </div>
+      </div>
+        
+      <div className="form-group">
+      <div class="row">
+      <div class="col-25">
+      <label>Description: {singleListing.title}{singleListing.price}</label>
+      </div>
+      <div class="col-75">
+      <input type="text" id="description" name="description"/>
+      </div>
+      </div>
+      </div>
+
+    <div className="form-group">
+    <div class="row">
+    <div class="col-25">
+    <label>Type: {singleListing.title}{singleListing.price}</label>
     </div>
+    <div class="col-75">
+    <input type="text" id="type" name="type"/>
+    </div>
+    </div>
+    </div>
+  </div>
+
+  
+  
   );
 };
 
