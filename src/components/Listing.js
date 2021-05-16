@@ -38,7 +38,9 @@ const Listing = ({ listing, userMode }) => {
     <Link className='link' to={{ pathname: `/product/${singleListing.mongoID}`, state: { userMode: setMode, } }}>
       <div className="card">
         <img className="cardImage border border-light" alt="" src={singleListing.imageFile} />
-        <h2>${singleListing.price} {singleListing.title}</h2>
+        <br></br>
+        <h5 id="listingLink">{singleListing.title}</h5>
+        <h6 id="listingLink">${singleListing.price}</h6>
       </div>
     </Link>
   );
