@@ -34,7 +34,7 @@ mongoClient.connect((err) => {
       price: req.body.price,
       title: req.body.title,
       imageFile: 'req.file.location',
-      id: makeid(8)
+      userId: req.body.userId
     };
 
     if (!req.body.imageFile) {
@@ -96,6 +96,22 @@ mongoClient.connect((err) => {
       // get and returns all the listings
       db.collection('listings').find({}).toArray()
         .then((result) => {
+          res.send(result);
+        });
+    }
+  });
+
+  // gets the user of a listing
+  app.get('/api/getListingUser', (req, res) => {
+    // checks if there were no queries in the url
+    if (Object.keys(req.query).length === 0) {
+      res.send('Error getting user');
+    }
+    else {
+      // get individual listing from database
+      db.collection('credentials').findOne({ _id: new mongodb.ObjectID(req.query.id) })
+        .then((result) => {
+          console.log(result);
           res.send(result);
         });
     }

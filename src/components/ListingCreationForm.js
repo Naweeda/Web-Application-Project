@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDescription, setType, setPrice, setTitle, setListings } from '../redux/actions/listingActions';
 import axios from 'axios';
 import './ListingCreationForm.css';
+import currentUser from './currentUser'; // gets current user
 
 const ListingCreationForm = () => {
   const dispatch = useDispatch(); // alerts redux that an actions has changed
@@ -23,6 +24,7 @@ const ListingCreationForm = () => {
     formData.append("type", type);
     formData.append("price", price);
     formData.append("title", title);
+    formData.append("userId", currentUser.getUser().id);
 
     // sends the form listing to api
     axios.post('/api/createListing', formData, { headers: { 'content-type': "multipart/form-data" } })

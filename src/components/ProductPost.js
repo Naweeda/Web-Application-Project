@@ -5,20 +5,28 @@ import { setSingleListing, setListings } from '../redux/actions/listingActions';
 import { setInquiries } from '../redux/actions/inquiryActions';
 import Inquiries from '../components/Inquiries';
 import axios from 'axios';
+import currentUser from './currentUser'; // gets current user
 
 const ProductPost = (props) => {
   const dispatch = useDispatch();
   const [message, setMessage] = React.useState(''); // from classwork 4 to change message box
-  const [setMode, setSetMode] = React.useState(false); // used for rendering for admin or user
+  const [owner, setOwner] = React.useState({}); // used for rendering for admin or user
   const singleListing = useSelector(state => state.listingReducer.singleListing);
 
   useEffect(() => {
-    if (props.location.state.userMode === true) setSetMode(true);
     // console.log(props.match.params.id); // listing id / mongodb ID
     axios.get(`/api/viewListings?id=${props.match.params.id}`)
       .then((response) => {
         // console.log(response.data[0]);
         dispatch(setSingleListing(response.data[0].data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios.get(`/api/getListingUser?id=${singleListing.userId}`)
+      .then((response) => {
+        dispatch(setOwner(response.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -95,10 +103,12 @@ const ProductPost = (props) => {
   return (
     <div>
       <img alt="" src={singleListing.imageFile} width="500" height="auto" />
-      {setMode ? (renderUser()) : (renderAdmin())}
+      {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
       <h1>Title: {singleListing.title} ${singleListing.price}</h1>
       <h2>Description: {singleListing.description}</h2>
       <h3>Type: {singleListing.type}</h3>
+      <h3>Owner: {owner.name}</h3>
+      <h3>Email: {owner.email}</h3>
     </div>
   );
 };
