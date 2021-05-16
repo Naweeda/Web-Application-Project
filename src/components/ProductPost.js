@@ -109,19 +109,19 @@ const ProductPost = (props) => {
 
   return (
     <div className="Posting">
-      <img alt="" src={singleListing.imageFile} width="500" height="auto" />
+      {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="500" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="500" height="auto" />}
       {currentUser.getUser().isLoggedIn && (
         <div>
-        <div className="message-area">
-          {messages.map((message, i) => <Message key={i} data={message} />)}
+          <div className="message-area">
+            {messages.map((message, i) => <Message key={i} data={message} />)}
+          </div>
+          <div>
+            <input type="text" value={text} onChange={handleTextChange} />
+          </div>
+          <div>
+            <button onClick={onSubmit}>Send</button>
+          </div>
         </div>
-        <div>
-          <input type="text" value={text} onChange={handleTextChange} />
-        </div>
-        <div>
-          <button onClick={onSubmit}>Send</button>
-        </div>
-      </div>
       )}
       {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
 
@@ -140,7 +140,7 @@ const ProductPost = (props) => {
           </div>
         </div>
       </div>
-        
+
       <div className="form-group">
         <div class="row">
           <div class="col-25">
@@ -149,34 +149,34 @@ const ProductPost = (props) => {
         </div>
       </div>
 
-    <div className="form-group">
-      <div class="row">
-        <div class="col-25">
-          <label>Type: {singleListing.type}</label>
+      <div className="form-group">
+        <div class="row">
+          <div class="col-25">
+            <label>Type: {singleListing.type}</label>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="form-group">
-      <div class="row">
-        <div class="col-25">
-          <label>Owner: {singleListing.name}</label>
+      <div className="form-group">
+        <div class="row">
+          <div class="col-25">
+            <label>Owner: {singleListing.name}</label>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="form-group">
-      <div class="row">
-        <div class="col-25">
-          <label>Email: {singleListing.email}</label>
+      <div className="form-group">
+        <div class="row">
+          <div class="col-25">
+            <label>Email: {singleListing.email}</label>
+          </div>
         </div>
       </div>
+
     </div>
 
-  </div>
 
-  
-  
+
   );
 };
 

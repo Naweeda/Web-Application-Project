@@ -37,7 +37,7 @@ const Listing = ({ listing, userMode }) => {
   return (
     <Link className='link' to={{ pathname: `/product/${singleListing.mongoID}`, state: { userMode: setMode, } }}>
       <div className="card">
-        <img className="cardImage border border-light" alt="" src={singleListing.imageFile} />
+        {singleListing.imageFile ? <img className="cardImage border border-light" alt="" src={singleListing.imageFile} /> : <img className="cardImage border border-light" alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' />}
         <br></br>
         <h5 id="listingLink">{singleListing.title}</h5>
         <h6 id="listingLink">${singleListing.price}</h6>
