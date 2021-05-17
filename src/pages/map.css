@@ -1,4 +1,5 @@
-.gmap_canvas {overflow:hidden;
+.gmap_canvas {
+    overflow:hidden;
     background:none!important;
     height:333px;
     width:375px;
