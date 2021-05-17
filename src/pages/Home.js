@@ -34,6 +34,12 @@ const Home = () => {
             </div>
             </div>
 
+            <h4>
+                About
+            </h4>
+            <p>
+                Create listings, view listings and chat with listing posters! This site is a chatty way to buy and sell items.
+            </p>
 
             <br></br>
             <h4>Our Location</h4>
@@ -46,12 +52,6 @@ const Home = () => {
                 </div>
             </div>
             <br></br>
-            <h4>
-                About
-            </h4>
-            <p>
-                Create listings, view listings and chat with listing posters! This site is a chatty way to buy and sell items.
-            </p>
         </div>
     )
 }
