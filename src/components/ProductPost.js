@@ -13,9 +13,14 @@ import currentUser from './currentUser'; // gets current user
 // sample chat box
 import '../pages/pages.css';
 import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
-const Message = ({ data }) => (
-  <p class="from-them">{data}</p>
-); // message tag from chat box?
+const Message = ({ data }) => {
+  console.log(data);
+  return (
+    <div>
+      {currentUser.getUser().name === data.name ? <p class="from-me" style={{ float: "right" }}>{data.name}: {data.message}</p> : <p class="from-them">{data.name}: {data.message}</p>}
+    </div>
+  );
+}; // message tag from chat box?
 
 const ProductPost = (props) => {
   const dispatch = useDispatch();
@@ -47,8 +52,8 @@ const ProductPost = (props) => {
     // gets messages
     axios.get(`/messanger/getMessages?listingId=${props.match.params.id}`)
       .then((res) => {
-        dispatch(updateMessages(res.data.map(r => r.data))); // changed to explicitly get message
-        console.log(res.data.map(r => r));
+        dispatch(updateMessages(res.data.map(r => r))); // changed to explicitly get message
+        //console.log(res.data.map(r => r));
       })
       .catch((e) => {
         console.log(e);
@@ -112,18 +117,20 @@ const ProductPost = (props) => {
       });
   };
 
+  // renders chat box
   const renderChat = () => {
     return (
       <div>
         {currentUser.getUser().isLoggedIn && (
-          <div>
+          <div class="container">
             <div class="imessage">
-              {console.log(messages)}
-              {messages.map((message, i) => <Message key={i} data={message} />)}
+              {messages.slice(0).reverse().map((message, i) => <Message key={i} data={message} />)}
             </div>
-            <div>
-              <input type="text" value={text} onChange={handleTextChange} />
-              <button class="btn btn-primary btn-sm" onClick={onSubmit}>Send</button>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Message..." aria-label="Message..." aria-describedby="basic-addon2" value={text} onChange={handleTextChange}/>
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" onClick={onSubmit}>Send</button>
+              </div>
             </div>
           </div>
         )}
@@ -143,7 +150,7 @@ const ProductPost = (props) => {
   };
 
   const handleClick = () => {
-    if(currentUser.getUser().isLoggedIn == false) {
+    if (currentUser.getUser().isLoggedIn == false) {
       return alert('Need to sign in');
     }
     let x = document.getElementById("showChat");
@@ -171,7 +178,7 @@ const ProductPost = (props) => {
           <button className="btn btn-primary btn-sm" onClick={handleClick}>Contact Seller</button>
         </div>
       </div>
-      <div id="showChat" style={{display: 'none'}}>{renderChat()}</div>
+      <div id="showChat" style={{ display: 'none' }}>{renderChat()}</div>
       {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
     </div>
   );

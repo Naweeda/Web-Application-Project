@@ -18,7 +18,7 @@ mongoClient.connect((err) => {
   // sorry for spelling wrong :(
   app.post('/messanger/postMessage', (req, res) => {
     console.log(req.body);
-    db.collection('test').insertMany([{ data: req.body.message, channelId: req.body.channelId}])
+    db.collection('test').insertMany([{ message: req.body.message, name: req.body.name, channelId: req.body.channelId}])
       .then(() => console.log('db insert worked'))
       .catch((e) => console.log(e));
     client.publish('testPublish', JSON.stringify(req.body)); // changed
