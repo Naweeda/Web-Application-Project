@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #282c34;
 }
 
 .App-link {
@@ -81,6 +81,7 @@
 
 .outer card {
   justify-content: center;
+  background-color: #282c34;
 }
 .custom-control-label {
   font-weight: 400;
@@ -88,4 +89,12 @@
 
 .link {
   margin-left: 10px;
+}
+
+.body{
+  height: 100%;
+}
+
+html{
+  background-color: #152a4a;
 }
