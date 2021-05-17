@@ -27,13 +27,19 @@ const Home = () => {
                 <div class="card w-100">
                 <div class="card-body">
                     <h6 class="card-title">Sell</h6>
-                    <p class="card-text">Post an item</p>
+                    <p class="card-text">Post an item here</p>
                     <a href="/adminpost" class="btn btn-primary">Post an item</a>
                 </div>
                 </div>
             </div>
             </div>
 
+            <h4>
+                About
+            </h4>
+            <p>
+                Create listings, view listings and chat with listing posters! This site is a chatty way to buy and sell items.
+            </p>
 
             <br></br>
             <h4>Our Location</h4>
@@ -46,12 +52,6 @@ const Home = () => {
                 </div>
             </div>
             <br></br>
-            <h4>
-                About
-            </h4>
-            <p>
-                Create listings, view listings and chat with listing posters! This site is a chatty way to buy and sell items.
-            </p>
         </div>
     )
 }
