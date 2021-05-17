@@ -173,7 +173,7 @@ const ProductPost = (props) => {
           <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Price: ${singleListing.price}</p>
           <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Description: {singleListing.description}</p>
           <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Type: {singleListing.type}</p>
-          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Owner: {singleListing.owner}</p>
+          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Owner: {singleListing.name}</p>
           <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Email: {singleListing.email}</p>
           <button className="btn btn-primary btn-sm" onClick={handleClick}>Contact Seller</button>
         </div>
