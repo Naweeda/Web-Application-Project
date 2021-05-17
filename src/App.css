@@ -76,6 +76,9 @@
   line-height: 1;
   padding-bottom: 20px;
 }
+.outer card {
+  justify-content: center;
+}
 .custom-control-label {
   font-weight: 400;
 }
