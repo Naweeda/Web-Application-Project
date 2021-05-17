@@ -112,6 +112,25 @@ const ProductPost = (props) => {
       });
   };
 
+  const renderChat = () => {
+    return (
+      <div>
+        {currentUser.getUser().isLoggedIn && (
+          <div>
+            <div class="imessage">
+              {console.log(messages)}
+              {messages.map((message, i) => <Message key={i} data={message} />)}
+            </div>
+            <div>
+              <input type="text" value={text} onChange={handleTextChange} />
+              <button class="btn btn-primary btn-sm" onClick={onSubmit}>Send</button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   // renders buttons for admin
   const renderAdmin = () => {
     return (
@@ -124,45 +143,26 @@ const ProductPost = (props) => {
   };
 
   return (
-  
-    <div className="Cards">
-      {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="250" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="250" height="auto" />}
-      
-      <div className="col">
-            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.title}Title:</h13>
-            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.price}Price:</h13>
-            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.description}Description:</h13>
-            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.type}Type:</h13>
-            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.owner}Owner:</h13>
-            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.email}Email:</h13>
-          
-            <a href="/Login" class="btn btn-primary btn-sm">Contact Seller</a>
-          
-      </div>
-      {currentUser.getUser().isLoggedIn && (
-        <div>
-          <div class="imessage">
-            {console.log(messages)}
-            {messages.map((message, i) => <Message key={i} data={message} />)}
-          </div>
-          {/* <div>
-            <input type="text" value={text} onChange={handleTextChange} />
-          </div>
-          <div>
-            <button onClick={onSubmit}>Send</button>
-          </div> */}
-         
 
+    <div class="Cards">
+      <div class="row">
+        <div class="column">
+          {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="200" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="200" height="auto" />}
         </div>
-      )}
+        <div class="column">
+          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Title: {singleListing.title}</h13>
+          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Price: ${singleListing.price}</h13>
+          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Description: {singleListing.description}</h13>
+          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Type: {singleListing.type}</h13>
+          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Owner: {singleListing.owner}</h13>
+          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Email: {singleListing.email}</h13>
+
+          <a href="/Login" class="btn btn-primary btn-sm">Contact Seller</a>
+        </div>
+      </div>
+      <div id="showChat">{renderChat()}</div>
       {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
-
-      
-
     </div>
-
-
-
   );
 };
 
