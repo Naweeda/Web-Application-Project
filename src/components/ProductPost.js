@@ -162,13 +162,12 @@ const ProductPost = (props) => {
           {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="200" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="200" height="auto" />}
         </div>
         <div className="column">
-          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Title: {singleListing.title}</h13>
-          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Price: ${singleListing.price}</h13>
-          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Description: {singleListing.description}</h13>
-          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Type: {singleListing.type}</h13>
-          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Owner: {singleListing.owner}</h13>
-          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Email: {singleListing.email}</h13>
-
+          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Title: {singleListing.title}</p>
+          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Price: ${singleListing.price}</p>
+          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Description: {singleListing.description}</p>
+          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Type: {singleListing.type}</p>
+          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Owner: {singleListing.owner}</p>
+          <p className="h13" style={{ paddingLeft: '10px', paddingRight: '50px' }} > Email: {singleListing.email}</p>
           <button className="btn btn-primary btn-sm" onClick={handleClick}>Contact Seller</button>
         </div>
       </div>
