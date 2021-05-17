@@ -1,3 +1,12 @@
 .form-group {
     padding-left: 200px;
 }
+
+.col-sm-6{
+    height: 325px;
+    background-color:rgba(255, 71, 71, 0);
+}
+
+.card{
+    width: 90px;
+}
