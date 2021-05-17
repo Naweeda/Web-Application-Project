@@ -6,12 +6,15 @@ import { setInquiries } from '../redux/actions/inquiryActions';
 import { updateMessages } from '../redux/actions/messageActions';
 import Inquiries from '../components/Inquiries';
 import axios from 'axios';
+import './ChatBubble.css'; // for chat
 import currentUser from './currentUser'; // gets current user
 
 // sample chat box
 import '../pages/pages.css';
 import { handlTextChange, submitMessage } from '../redux/actions/messageActions';
-const Message = ({ data }) => (<div>{data}</div>); // message tag from chat box?
+const Message = ({ data }) => (
+  <p class="from-them">{data}</p>
+); // message tag from chat box?
 
 const ProductPost = (props) => {
   const dispatch = useDispatch();
@@ -40,11 +43,11 @@ const ProductPost = (props) => {
         console.log(error);
       });
 
-      // gets messages
-      axios.get(`/messanger/getMessages?listingId=${props.match.params.id}`)
+    // gets messages
+    axios.get(`/messanger/getMessages?listingId=${props.match.params.id}`)
       .then((res) => {
         dispatch(updateMessages(res.data.map(r => r.data))); // changed to explicitly get message
-        console.log(res.data.map( r => r));
+        console.log(res.data.map(r => r));
       })
       .catch((e) => {
         console.log(e);
@@ -124,7 +127,8 @@ const ProductPost = (props) => {
       {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="440" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="440" height="auto" />}
       {currentUser.getUser().isLoggedIn && (
         <div>
-          <div className="message-area">
+          <div class="imessage">
+            {console.log(messages)}
             {messages.map((message, i) => <Message key={i} data={message} />)}
           </div>
           <div>
