@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './ProductPost.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSingleListing, setListings } from '../redux/actions/listingActions';
@@ -75,14 +76,15 @@ const ProductPost = (props) => {
   // if usermode is user, render text box for inquiring about listing
   const renderUser = () => {
     return (
-      <div>
-        {/* <textarea
-          type="text"
-          id={singleListing.id}
-          onChange={e => setMessage(e.target.value)}
-          value={message} />
-        <button className="submit" onClick={sendInquire}>Send</button> */}
-      </div>
+      // <div>
+      //   <textarea
+      //     type="text"
+      //     id={singleListing.id}
+      //     onChange={e => setMessage(e.target.value)}
+      //     value={message} />
+      //   <button className="submit" onClick={sendInquire}>Send</button>
+      // </div>
+      <div></div>
     );
   };
 
@@ -122,70 +124,40 @@ const ProductPost = (props) => {
   };
 
   return (
-    <div className="Posting">
-      {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
-      {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="440" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="440" height="auto" />}
+  
+    <div className="Cards">
+      {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="250" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="250" height="auto" />}
+      
+      <div className="col">
+            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.title}Title:</h13>
+            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.price}Price:</h13>
+            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.description}Description:</h13>
+            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.type}Type:</h13>
+            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.owner}Owner:</h13>
+            <h13 class="h13" style={{float : 'left', paddingLeft : '10px', paddingRight : '500px'}} > {singleListing.email}Email:</h13>
+          
+            <a href="/Login" class="btn btn-primary btn-sm">Contact Seller</a>
+          
+      </div>
       {currentUser.getUser().isLoggedIn && (
         <div>
           <div class="imessage">
             {console.log(messages)}
             {messages.map((message, i) => <Message key={i} data={message} />)}
           </div>
-          <div>
+          {/* <div>
             <input type="text" value={text} onChange={handleTextChange} />
           </div>
           <div>
             <button onClick={onSubmit}>Send</button>
-          </div>
+          </div> */}
+         
+
         </div>
       )}
-      <div className="form-group">
-        <div class="row">
-          <div class="col-25">
-            <label>Title: {singleListing.title}</label>
-          </div>
-        </div>
-      </div>
+      {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
 
-      <div className="form-group">
-        <div class="row">
-          <div class="col-25">
-            <label>Price: ${singleListing.price}</label>
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <div class="row">
-          <div class="col-25">
-            <label>Description: {singleListing.description}</label>
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <div class="row">
-          <div class="col-25">
-            <label>Type: {singleListing.type}</label>
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <div class="row">
-          <div class="col-25">
-            <label>Owner: {singleListing.name}</label>
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <div class="row">
-          <div class="col-25">
-            <label>Email: {singleListing.email}</label>
-          </div>
-        </div>
-      </div>
+      
 
     </div>
 
