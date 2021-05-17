@@ -68,7 +68,7 @@
   border-color: #167bff;
   box-shadow: none;
 }
-.outer h2 {
+.outer h1 {
   text-align: center;
   margin-bottom: 80px;
   margin-top: 80px;
@@ -76,6 +76,7 @@
   line-height: 1;
   padding-bottom: 20px;
 }
+
 .outer card {
   justify-content: center;
 }
