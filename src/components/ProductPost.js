@@ -143,6 +143,9 @@ const ProductPost = (props) => {
   };
 
   const handleClick = () => {
+    if(currentUser.getUser().isLoggedIn == false) {
+      return alert('Need to sign in');
+    }
     let x = document.getElementById("showChat");
     if (x.style.display === "none") {
       x.style.display = "block";
