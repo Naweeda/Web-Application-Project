@@ -27,7 +27,7 @@ const Home = () => {
                 <div class="card w-100">
                 <div class="card-body">
                     <h6 class="card-title">Sell</h6>
-                    <p class="card-text">Post an item</p>
+                    <p class="card-text">Post an item here</p>
                     <a href="/adminpost" class="btn btn-primary">Post an item</a>
                 </div>
                 </div>
