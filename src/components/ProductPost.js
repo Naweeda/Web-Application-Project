@@ -156,20 +156,20 @@ const ProductPost = (props) => {
 
   return (
 
-    <div class="Cards">
-      <div class="row">
-        <div class="column">
+    <div className="Cards">
+      <div className="row">
+        <div className="column">
           {singleListing.imageFile ? <img alt="" src={singleListing.imageFile} width="200" height="auto" /> : <img alt="" src='https://csc667.s3-us-west-1.amazonaws.com/default-image.jpg' width="200" height="auto" />}
         </div>
-        <div class="column">
-          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Title: {singleListing.title}</h13>
-          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Price: ${singleListing.price}</h13>
-          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Description: {singleListing.description}</h13>
-          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Type: {singleListing.type}</h13>
-          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Owner: {singleListing.owner}</h13>
-          <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Email: {singleListing.email}</h13>
+        <div className="column">
+          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Title: {singleListing.title}</h13>
+          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Price: ${singleListing.price}</h13>
+          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Description: {singleListing.description}</h13>
+          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Type: {singleListing.type}</h13>
+          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Owner: {singleListing.owner}</h13>
+          <h13 className="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '50px' }} > Email: {singleListing.email}</h13>
 
-          <button class="btn btn-primary btn-sm" onClick={handleClick}>Contact Seller</button>
+          <button className="btn btn-primary btn-sm" onClick={handleClick}>Contact Seller</button>
         </div>
       </div>
       <div id="showChat" style={{display: 'none'}}>{renderChat()}</div>
