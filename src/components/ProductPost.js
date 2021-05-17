@@ -142,6 +142,15 @@ const ProductPost = (props) => {
     );
   };
 
+  const handleClick = () => {
+    let x = document.getElementById("showChat");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  };
+
   return (
 
     <div class="Cards">
@@ -157,10 +166,10 @@ const ProductPost = (props) => {
           <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Owner: {singleListing.owner}</h13>
           <h13 class="h13" style={{ float: 'left', paddingLeft: '10px', paddingRight: '500px' }} > Email: {singleListing.email}</h13>
 
-          <a href="/Login" class="btn btn-primary btn-sm">Contact Seller</a>
+          <button class="btn btn-primary btn-sm" onClick={handleClick}>Contact Seller</button>
         </div>
       </div>
-      <div id="showChat">{renderChat()}</div>
+      <div id="showChat" style={{display: 'none'}}>{renderChat()}</div>
       {(currentUser.getUser().id === singleListing.userId) ? (renderAdmin()) : (renderUser())}
     </div>
   );
