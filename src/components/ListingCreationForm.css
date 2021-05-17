@@ -2,3 +2,9 @@ label {
     position: absolute;
     left: 40%;
 }
+
+#upload-button {
+    position: relative;
+    left:auto;
+    right:25%;
+}

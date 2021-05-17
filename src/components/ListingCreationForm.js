@@ -96,12 +96,13 @@ const ListingCreationForm = () => {
           onChange={e => dispatch(setPrice(e.target.value))}
           value={price} />
       </div>
-      <div>
+      <div className="form-group">
+        <label>Image: </label>
         <input type="file" id="productImage" accept="image/jpg,image/jpeg,image/png" />
       </div>
         <br></br>
       <div>
-        <button id="submit" onClick={submit}>Submit</button>
+        <button id="submit" className="btn btn-dark btn-lg btn-block" onClick={submit}>Submit</button>
       </div>
     </div>
   );
