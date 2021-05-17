@@ -37,8 +37,10 @@ const App = () => {
   }
 
   return (
+    
     <div className="App">
       <div className="outer">
+       <br></br>
         <div className="inner">
           <div className="nav-bar">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,6 +71,8 @@ const App = () => {
         </div>
       </div>
 
+      <br></br>
+
       <div className="outer">
         <div className="inner">
           <Switch>
@@ -83,6 +87,7 @@ const App = () => {
           </Switch>
         </div>
       </div>
+      <br></br>
     </div>
   );
 };
