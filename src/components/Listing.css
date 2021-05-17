@@ -24,10 +24,12 @@ table {
     transform: scale(1.08);
 }
 
-
+/* 
 .card{
     width: 250px;
     height: 300px;
+    margin-left: 20px;
+    margin-right:20px;
     padding: 10px;
     overflow:hidden;
     margin: 10px 5px;
@@ -37,8 +39,17 @@ table {
     box-shadow: 5px 5px 16px -6px rgba(0,0,0,0.65);
     background-color: white;
 
+} */
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
+.card {
+    flex: 0 1 24%;
+}
 .card > h2{
     padding-top: 12px;
     text-align: center;
