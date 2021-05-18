@@ -21,8 +21,8 @@ const loginReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoggedIn: action.isLoggedIn,
             };
-            default:
-                return state;
+        default:
+            return state;
     }
 };
 

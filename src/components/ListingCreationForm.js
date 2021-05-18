@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import { setDescription, setType, setPrice, setTitle, setListings } from '../redux/actions/listingActions';
 import currentUser from './currentUser'; // gets current user
 import './ListingCreationForm.css';

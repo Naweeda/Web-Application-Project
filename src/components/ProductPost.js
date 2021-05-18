@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
-import './ProductPost.css';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSingleListing, setListings } from '../redux/actions/listingActions';
-import { setInquiries } from '../redux/actions/inquiryActions';
 import { updateMessages } from '../redux/actions/messageActions';
-import Inquiries from '../components/Inquiries';
-import axios from 'axios';
-import './ChatBubble.css'; // for chat
+import { setSingleListing, setListings } from '../redux/actions/listingActions';
 import currentUser from './currentUser'; // gets current user
+import './ProductPost.css';
+import './ChatBubble.css'; // for chat
 
 // sample chat box
 import '../pages/pages.css';
@@ -39,7 +37,6 @@ const ProductPost = (props) => {
   }
 
   useEffect(() => {
-    // console.log(props.match.params.id); // listing id / mongodb ID
     axios.get(`/api/viewListings?id=${props.match.params.id}`)
       .then((response) => {
         console.log(response.data.data);
@@ -53,7 +50,6 @@ const ProductPost = (props) => {
     axios.get(`/messanger/getMessages?listingId=${props.match.params.id}`)
       .then((res) => {
         dispatch(updateMessages(res.data.map(r => r))); // changed to explicitly get message
-        //console.log(res.data.map(r => r));
       })
       .catch((e) => {
         console.log(e);
@@ -81,15 +77,9 @@ const ProductPost = (props) => {
   // if usermode is user, render text box for inquiring about listing
   const renderUser = () => {
     return (
-      // <div>
-      //   <textarea
-      //     type="text"
-      //     id={singleListing.id}
-      //     onChange={e => setMessage(e.target.value)}
-      //     value={message} />
-      //   <button className="submit" onClick={sendInquire}>Send</button>
-      // </div>
-      <div></div>
+      <div>
+
+      </div>
     );
   };
 
@@ -99,18 +89,6 @@ const ProductPost = (props) => {
       .then((response) => {
         console.log(response);
         dispatch(setListings(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  // gets inquiries from a listing and sets it to array in reducer
-  const viewInquire = () => {
-    axios.get(`/messanger/getInquiries?listingId=${props.match.params.id}`)
-      .then((response) => {
-        console.log(response);
-        dispatch(setInquiries(response.data));
       })
       .catch((error) => {
         console.log(error);

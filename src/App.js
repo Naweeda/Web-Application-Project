@@ -1,8 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import { Switch, Route, Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { updateMessages } from './redux/actions/messageActions';
+import { useSelector } from 'react-redux';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -15,20 +13,11 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-  const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
 
   React.useEffect(() => {
     if (isLoggedIn) window.location.reload(); // cheap way to get website to see current user
     console.log(currentUser.getUser());
-    // axios.get('/messanger/getMessages')
-    //   .then((res) => {
-    //     dispatch(updateMessages(res.data.map(r => r.data))); // changed to explicitly get message
-    //     console.log(res.data.map( r => r));
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
   }, [isLoggedIn]);
 
   const logOut = () => {

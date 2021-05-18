@@ -16,5 +16,4 @@ const inquiryReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-
 export default inquiryReducer;

@@ -56,7 +56,6 @@ mongoClient.connect((err) => {
     // get and returns all the listings
     db.collection('listings').find({}).toArray()
       .then((result) => {
-        // console.log(result);
         res.send(result);
       });
   });
@@ -79,15 +78,11 @@ mongoClient.connect((err) => {
           // gets listing owner so it doesn't have to be in another endpoint
           db.collection('credentials').findOne({ _id: new mongodb.ObjectID(result.data.userId) })
             .then((result2) => {
-              // console.log(result2);
               result.data.name = result2.data.name;
               result.data.email = result2.data.email;
               console.log(result);
               res.send(result);
             });
-
-          // console.log(result);
-          //res.send(result);
         });
     }
   });
@@ -156,8 +151,6 @@ mongoClient.connect((err) => {
   });
 
 });
-
-// endpoints
 
 module.exports = app;
 
