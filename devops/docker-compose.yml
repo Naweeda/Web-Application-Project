@@ -16,7 +16,7 @@ services:
     networks:
       - webnet
   gateway:
-    image: bparra/gateway
+    image: marlonbustamante/gateway
     ports:
       - "4000:4000"
     deploy:
@@ -27,8 +27,9 @@ services:
       - FRONT_END_HOST=http://frontend:3000
       - MESSANGER_HOST=http://messanger:5000
       - WEBSOCKET_HOST=http://websocket:6000/websocket
+      - SERVER_HOST=http://server:4001
   frontend:
-    image : bparra/react-demo
+    image : marlonbustamante/react-demo
     ports:
       - "3000:3000"
     deploy:
@@ -38,7 +39,7 @@ services:
     networks:
       - webnet
   websocket:
-    image : bparra/websocket-demo
+    image : marlonbustamante/websocket-demo
     depends_on:
       - redis
     ports:
@@ -52,12 +53,27 @@ services:
     environment:
       - REDIS_HOST=redis
   messanger:
-    image : bparra/messanger-demo
+    image : marlonbustamante/messanger-demo
     depends_on:
       - redis
       - mongodb
     ports:
       - "5000:5000"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - webnet
+    environment:
+      - REDIS_HOST=redis
+      - MONGO_HOST=mongodb://mongodb:27017
+  server:
+    image : marlonbustamante/server-demo
+    depends_on:
+      - mongodb
+    ports:
+      - "4001:4001"
     deploy:
       replicas: 1
       restart_policy:
