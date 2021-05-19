@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword, setIsLoggedIn } from '../redux/actions/loginActions';
 import { Redirect } from 'react-router';
@@ -14,22 +15,33 @@ const Login = () => {
     const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
 
     const handleClick = () => {
+        console.log(email);
         const body = {
             email: email,
             password: password,
         };
         axios.post('api/login', body)
             .then((res) => {
-                if ((res.data.data.email === email) && (res.data.data.password === password)) {
-                    dispatch(setIsLoggedIn(true));
-                    // sets logged in user
-                    const userForm = {
-                        name: res.data.data.name,
-                        email: res.data.data.email,
-                        id: res.data._id,
-                        isLoggedIn: true
-                    };
-                    currentUser.setUser(userForm);
+                if ((res.data.data.email === email)) {
+                    // compare login password with encrypted password from database
+                    bcrypt.compare(password, res.data.data.password, function (err, isMatch) {
+                        if (err) throw err;
+                        if (isMatch) {
+                            console.log("Password Match");
+                            dispatch(setIsLoggedIn(true));
+                            // sets logged in user
+                            const userForm = {
+                                name: res.data.data.name,
+                                email: res.data.data.email,
+                                id: res.data._id,
+                                isLoggedIn: true
+                            };
+                            currentUser.setUser(userForm);
+                        }
+                        else {
+                            alert("Wrong Password");
+                        }
+                    });
                 }
             })
             .catch((error) => {

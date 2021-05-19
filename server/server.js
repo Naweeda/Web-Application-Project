@@ -142,7 +142,7 @@ mongoClient.connect((err) => {
   app.post('/api/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    db.collection('credentials').findOne({ 'data.email': `${email}`, 'data.password': `${password}` })
+    db.collection('credentials').findOne({ 'data.email': `${email}` })
       .then((result) => {
         console.log(result);
         res.send(result);

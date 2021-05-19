@@ -3,7 +3,7 @@
 # Created by
 - Kevin Chan
 - Naweeda Qeyam
-- Marlon Bustamonte
+- Marlon Bustamante
 - Robert Freeman
 
 # About this app
@@ -11,6 +11,7 @@
 
 # Features
 - Login Validation
+- Password Encryption
 - User Registration
 - Posting an Item for sale(includes image upload)
 - Viewing all listings created by everyone 
