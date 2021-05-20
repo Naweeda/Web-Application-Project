@@ -23,6 +23,9 @@
 - Microservices concept
 - React Redux for storing state of login, registration, and listing info
 - Bootstrap/React Bootstrap for some styling
+- Docker
+- AWS
+- S3
 
 # How to Run the App
 - Run Robo3T and redis-server
@@ -30,7 +33,7 @@
 - node server/gateway.js
 - node server/server.js
 - node server/messanger.js
-- node server/websockets.js
+- node server/websocket.js
 
 # Building Docker Containers
 
