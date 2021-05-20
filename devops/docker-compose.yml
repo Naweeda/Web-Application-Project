@@ -81,7 +81,6 @@ services:
     networks:
       - webnet
     environment:
-      - REDIS_HOST=redis
       - MONGO_HOST=mongodb://mongodb:27017
 networks:
   webnet:

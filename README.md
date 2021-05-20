@@ -19,7 +19,7 @@
 
 # Technologies Used
 - Websockets and Redis for messaging
-- MongoDB/Robo3T for keeping data of user and listing info
+- MongoDB/Robo3T for keeping data of user, listing info, and messages
 - Microservices concept
 - React Redux for storing state of login, registration, and listing info
 - Bootstrap/React Bootstrap for some styling
@@ -31,3 +31,11 @@
 - node server/server.js
 - node server/messanger.js
 - node server/websockets.js
+
+# Building Docker Containers
+
+    docker build --no-cache -t server-demo -f server.Dockerfile .
+    docker build --no-cache -t react-demo -f frontend.Dockerfile .
+    docker build --no-cache -t gateway -f gateway.Dockerfile .
+    docker build --no-cache -t messanger-demo -f messanger.Dockerfile .
+    docker build --no-cache -t websocket-demo -f websocket.Dockerfile .
